@@ -2,3 +2,4 @@
 yarn build
 git add .
 git commit -m "ducks"
+git push
