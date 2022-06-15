@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css'
 import {Test} from "./components/test";
+import {Recognize} from "./components/recognize/recognize";
 
 interface Options {
     notes: Array<string>
@@ -15,13 +16,25 @@ export const ctx = React.createContext({
 
 function App() {
     const [options, setOptions] = useState<Options>(defaultOptions)
+    const [start, setStart] = useState(false)
     return (
-        <div className="App">
-            <ctx.Provider value={{options, setOptions}}>
-                <Test/>
-            </ctx.Provider>
 
+        <div className={'appContainer'}>
+            <ctx.Provider value={{options, setOptions}}>
+                {!start && <>
+                    <h3>Relative pitch exercises</h3>
+                    <p>ducks ducks ducks</p>
+                    <button onClick={() => {
+                        setStart(true)
+                    }}>
+                        Get started
+                    </button>
+                </>}
+                {start && <Recognize/>}
+
+            </ctx.Provider>
         </div>
+
     );
 }
 

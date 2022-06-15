@@ -17,5 +17,7 @@ export const Recognize: FunctionComponent = () => {
 
 
     }
-    return <div></div>
+    return <div>
+        <button onClick={onClick}>noise!!</button>
+    </div>
 }
