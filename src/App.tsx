@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import './App.css'
-import {Test} from "./components/test";
-import {Recognize} from "./components/recognize/recognize";
+import {Produce} from "./components/produce/produce";
 
 interface Options {
-    notes: Array<string>
+    activePitches: Array<string>
 }
 
-const defaultOptions: Options = {notes: []}
+const defaultOptions: Options = {activePitches: []}
 const defaultUpdate: React.Dispatch<React.SetStateAction<Options>> = () => defaultOptions;
 export const ctx = React.createContext({
     options: defaultOptions,
@@ -30,7 +29,7 @@ function App() {
                         Get started
                     </button>
                 </>}
-                {start && <Recognize/>}
+                {start && <Produce/>}
 
             </ctx.Provider>
         </div>
