@@ -7,7 +7,7 @@ export const Home: FunctionComponent = () => {
     return <div className={style.home}>
         <div>
             {!start && <>
-                <h3>Relative pitdwdh exercises</h3>
+                <h3>Relative pitch</h3>
                 <p>ducks ducks ducks</p>
                 <button onClick={() => {
                     setStart(true)
