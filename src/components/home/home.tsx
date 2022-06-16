@@ -12,11 +12,10 @@ export const Home: FunctionComponent = () => {
                 <button onClick={() => {
                     setStart(true)
                 }}>
-                    Get started
+                    Get startd
                 </button>
             </>}
-            {start && <Produce/>}dw
-            {start}
+            {start && <Produce/>}
         </div>
     </div>
 }
