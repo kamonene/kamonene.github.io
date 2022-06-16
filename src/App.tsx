@@ -21,7 +21,6 @@ function App() {
         <div className={'appContainer'}>
             <ctx.Provider value={{options, setOptions}}>
                 <Home/>
-
             </ctx.Provider>
         </div>
 
