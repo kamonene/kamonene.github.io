@@ -6,9 +6,16 @@ export default defineConfig({
     plugins: [react()],
     build: {
         rollupOptions: {
-            input: './src/main.tsx'
+            input: './src/main.tsx',
+            output:{
+                entryFileNames: 'app-[name].js',
+                assetFileNames: 'app-[name].css',
+
+            }
         },
+
         outDir: '../build',
     },
-    root: "./src"
+    root: "./src",
+
 })

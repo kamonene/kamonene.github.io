@@ -12,7 +12,7 @@ export const Home: FunctionComponent = () => {
                 <button onClick={() => {
                     setStart(true)
                 }}>
-                    Get startd
+                    Get started
                 </button>
             </>}
             {start && <Produce/>}
