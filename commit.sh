@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 yarn build
-cp build/* . -r
+cp dist/assets/* . -r
 git add .
 git commit -m "ducks"
 git push
