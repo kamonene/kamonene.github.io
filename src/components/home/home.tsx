@@ -15,7 +15,8 @@ export const Home: FunctionComponent = () => {
                     Get started
                 </button>
             </>}
-            {start && <Produce/>}
+            <div className={style.divider}/>
+            <Produce/>
         </div>
     </div>
 }

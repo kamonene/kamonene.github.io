@@ -3,10 +3,10 @@ import {Produce} from "./components/produce/produce";
 import {Home} from "./components/home/home";
 
 interface Options {
-    activePitches: Array<string>
+    activeIntervals: Array<string>
 }
 
-const defaultOptions: Options = {activePitches: []}
+const defaultOptions: Options = {activeIntervals: []}
 const defaultUpdate: React.Dispatch<React.SetStateAction<Options>> = () => defaultOptions;
 export const ctx = React.createContext({
     options: defaultOptions,
@@ -21,6 +21,7 @@ function App() {
         <div className={'appContainer'}>
             <ctx.Provider value={{options, setOptions}}>
                 <Home/>
+
             </ctx.Provider>
         </div>
 

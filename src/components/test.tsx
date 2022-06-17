@@ -7,10 +7,10 @@ export const Test: FunctionComponent = () => {
 
     return <div>
         <button onClick={() => {
-            setOptions({...options, activePitches: ['ducks']})
+            setOptions({...options, activeIntervals: ['ducks']})
         }}>
             button!
         </button>
-        {options.activePitches.map(item=>item)}
+        {options.activeIntervals.map(item=>item)}
     </div>
 }

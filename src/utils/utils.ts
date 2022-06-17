@@ -20,3 +20,36 @@ export const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#'
 export const pitches: any = {
     PERFECT_FIFTH: 7
 }
+
+export const enum Intervals {
+    'Perfect unison' = 'Perfect unison',
+    'Minor second' = 'Minor second',
+    'Major second' = 'Major second',
+    'Minor third' = 'Minor third',
+    'Major third' = 'Major third',
+    'Perfect fourth' = 'Perfect fourth',
+    'Tritone' = 'Tritone',
+    'Perfect fifth' = 'Perfect fifth',
+    'Minor sixth' = 'Minor sixth',
+    'Major sixth' = 'Major sixth',
+    'Minor seventh' = 'Minor seventh',
+    'Major seventh' = 'Major seventh',
+    'Perfect octave' = 'Perfect octave',
+}
+
+export const intervalList = [
+    Intervals['Perfect unison'],
+    Intervals['Minor second'],
+    Intervals['Major second'],
+    Intervals['Minor third'],
+    Intervals['Major third'],
+    Intervals['Perfect fourth'],
+    Intervals['Tritone'],
+    Intervals['Perfect fifth'],
+    Intervals['Minor sixth'],
+    Intervals['Major sixth'],
+    Intervals['Minor seventh'],
+    Intervals['Major seventh'],
+    Intervals['Perfect octave'],
+]
+
