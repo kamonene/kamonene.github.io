@@ -14,14 +14,37 @@ export const numberToNote = (number: number): string => {
 export const pitchIncrease = (note: string, steps: number) =>
     numberToNote(noteToNumber(note) + steps)
 
-
-export const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-
-export const pitches: any = {
-    PERFECT_FIFTH: 7
+export const enum Note {
+    'C' = 'C',
+    'C#' = 'C#',
+    'D' = 'D',
+    'D#' = 'D#',
+    'E' = 'E',
+    'F' = 'F',
+    'F#' = 'F#',
+    'G' = 'G',
+    'G#' = 'G#',
+    'A' = 'A',
+    'A#' = 'A#',
+    'B' = 'B'
 }
 
-export const enum Intervals {
+export const notes = [
+    Note['C'],
+    Note['C#'],
+    Note['D'],
+    Note['D#'],
+    Note['E'],
+    Note['F'],
+    Note['F#'],
+    Note['G'],
+    Note['G#'],
+    Note['A'],
+    Note['A#'],
+    Note['B'],
+]
+
+export const enum Interval {
     'Perfect unison' = 'Perfect unison',
     'Minor second' = 'Minor second',
     'Major second' = 'Major second',
@@ -37,19 +60,19 @@ export const enum Intervals {
     'Perfect octave' = 'Perfect octave',
 }
 
-export const intervalList = [
-    Intervals['Perfect unison'],
-    Intervals['Minor second'],
-    Intervals['Major second'],
-    Intervals['Minor third'],
-    Intervals['Major third'],
-    Intervals['Perfect fourth'],
-    Intervals['Tritone'],
-    Intervals['Perfect fifth'],
-    Intervals['Minor sixth'],
-    Intervals['Major sixth'],
-    Intervals['Minor seventh'],
-    Intervals['Major seventh'],
-    Intervals['Perfect octave'],
+export const intervals = [
+    Interval['Perfect unison'],
+    Interval['Minor second'],
+    Interval['Major second'],
+    Interval['Minor third'],
+    Interval['Major third'],
+    Interval['Perfect fourth'],
+    Interval['Tritone'],
+    Interval['Perfect fifth'],
+    Interval['Minor sixth'],
+    Interval['Major sixth'],
+    Interval['Minor seventh'],
+    Interval['Major seventh'],
+    Interval['Perfect octave'],
 ]
 

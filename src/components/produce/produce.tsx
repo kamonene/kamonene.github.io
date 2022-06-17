@@ -1,31 +1,57 @@
-import React, {FunctionComponent, useContext} from 'react';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
 import * as Tone from "tone";
-import {intervalList, Intervals, pitchIncrease} from "../../utils/utils";
+import {intervals, Interval, pitchIncrease, Note, noteToNumber, numberToNote} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
-import {ctx} from "../../App";
+import {ctx, Options} from "../../App";
+
+
+interface CurrentThing {
+    currentIntervalName: Interval,
+    currentInterval: number,
+    currentBaseNote: string
+}
 
 export const Produce: FunctionComponent = () => {
-
     const {options} = useContext(ctx)
-    const difference = intervalList.findIndex(item => options.currentInterval === item)
+
+    const findCurrentThing = (options: Options): CurrentThing => {
+        const activeIntervals = options.activeIntervals
+        const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
+
+        return {
+            currentIntervalName: current,
+            currentInterval: intervals.findIndex(item => current === item),
+            currentBaseNote: 'F2'
+        }
+    }
+
+    const [currentThing, setCurrentThing] = useState(findCurrentThing(options))
+
+    useEffect(() => {
+        setCurrentThing(findCurrentThing(options))
+    }, [options, options.activeIntervals.length])
+
     const synth = new Tone.Synth().toDestination()
-    const note = 'C4'
+    const note = currentThing.currentBaseNote
 
     const onClickBase = () => {
         synth.triggerAttackRelease(note, "8n");
     }
     const onClickBaseConfirm = () => {
-        synth.triggerAttackRelease(pitchIncrease(note, 7), "8n");
+        synth.triggerAttackRelease(pitchIncrease(note, currentThing.currentInterval), "8n");
     }
+    const onClickNext = () => {
+        setCurrentThing(findCurrentThing(options))
+    }
+
     return <div>
         <div>
             <button onClick={onClickBase}>Play</button>
             <button onClick={onClickBaseConfirm}>Check</button>
+            <button onClick={onClickNext}>next</button>
         </div>
         <IntervalSelector/>
-
-        {options.currentInterval}
-        <br/>
-        {difference}
+        {numberToNote(40)}
+        {JSON.stringify(currentThing)}
     </div>
 }

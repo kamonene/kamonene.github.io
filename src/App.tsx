@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import {Home} from "./components/home/home";
-import {Intervals} from "./utils/utils";
+import {Interval} from "./utils/utils";
 
-interface Options {
-    activeIntervals: Array<Intervals>
-    currentInterval: Intervals,
+export interface Options {
+    activeIntervals: Array<Interval>
+    baseNoteLower: number,
+    baseNoteUpper: number,
+
 }
 
 const defaultOptions: Options = {
-    activeIntervals: [Intervals["Perfect unison"], Intervals["Perfect fifth"]],
-    currentInterval: Intervals['Perfect fifth']
+    activeIntervals: [Interval["Perfect unison"], Interval["Perfect fifth"]],
+    baseNoteLower: 40,
+    baseNoteUpper: 60
 }
 const defaultUpdate: React.Dispatch<React.SetStateAction<Options>> = () => defaultOptions;
 
