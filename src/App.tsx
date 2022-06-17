@@ -11,8 +11,8 @@ export interface Options {
 
 const defaultOptions: Options = {
     activeIntervals: [Interval["Perfect unison"], Interval["Perfect fifth"]],
-    baseNoteLower: 40,
-    baseNoteUpper: 60
+    baseNoteLower: 35,
+    baseNoteUpper: 50
 }
 const defaultUpdate: React.Dispatch<React.SetStateAction<Options>> = () => defaultOptions;
 
