@@ -11,6 +11,11 @@ interface CurrentThing {
     currentBaseNote: string
 }
 
+const randomInRange = (lower: number, upper: number): number => {
+    const random = Math.floor(Math.random() * (upper - lower))
+    return random + lower
+}
+
 export const Produce: FunctionComponent = () => {
     const {options} = useContext(ctx)
 
@@ -21,7 +26,7 @@ export const Produce: FunctionComponent = () => {
         return {
             currentIntervalName: current,
             currentInterval: intervals.findIndex(item => current === item),
-            currentBaseNote: 'F2'
+            currentBaseNote: numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
         }
     }
 
@@ -44,11 +49,17 @@ export const Produce: FunctionComponent = () => {
         setCurrentThing(findCurrentThing(options))
     }
 
+
     return <div>
         <div>
             <button onClick={onClickBase}>Play</button>
             <button onClick={onClickBaseConfirm}>Check</button>
             <button onClick={onClickNext}>next</button>
+            <button onClick={() => {
+                console.log(randomInRange(21, 23))
+            }
+            }>random
+            </button>
         </div>
         <IntervalSelector/>
         {numberToNote(40)}
