@@ -7,11 +7,10 @@ import {ctx} from "../../App";
 export const Produce: FunctionComponent = () => {
 
     const {options} = useContext(ctx)
-    const activeIntervals = options.activeIntervals
+    const difference = intervalList.findIndex(item => options.currentInterval === item)
     const synth = new Tone.Synth().toDestination()
     const note = 'C4'
-    const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
-    const difference = intervalList.findIndex(item => current === item)
+
     const onClickBase = () => {
         synth.triggerAttackRelease(note, "8n");
     }
@@ -24,10 +23,9 @@ export const Produce: FunctionComponent = () => {
             <button onClick={onClickBaseConfirm}>Check</button>
         </div>
         <IntervalSelector/>
-        current:{current}
+
+        {options.currentInterval}
         <br/>
-        current interval: {difference}
-
-
+        {difference}
     </div>
 }
