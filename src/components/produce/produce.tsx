@@ -1,11 +1,11 @@
 import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
 import * as Tone from "tone";
-import {intervals, Interval, pitchIncrease, Note, noteToNumber, numberToNote} from "../../utils/utils";
+import {Interval, intervals, numberToNote, pitchIncrease} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
 import {ctx, Options} from "../../App";
+import style from './produce.module.less'
 
-
-interface CurrentThing {
+interface CurrentIntervalMetadata {
     currentIntervalName: Interval,
     currentInterval: number,
     currentBaseNote: string
@@ -19,7 +19,7 @@ const randomInRange = (lower: number, upper: number): number => {
 export const Produce: FunctionComponent = () => {
     const {options} = useContext(ctx)
 
-    const findCurrentThing = (options: Options): CurrentThing => {
+    const findNextInterval = (options: Options): CurrentIntervalMetadata => {
         const activeIntervals = options.activeIntervals
         const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
 
@@ -30,39 +30,35 @@ export const Produce: FunctionComponent = () => {
         }
     }
 
-    const [currentThing, setCurrentThing] = useState(findCurrentThing(options))
+    const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(findNextInterval(options))
 
     useEffect(() => {
-        setCurrentThing(findCurrentThing(options))
+        const nextInterval = findNextInterval(options)
+        setCurrentIntervalMetaData(nextInterval)
     }, [options, options.activeIntervals.length])
 
     const synth = new Tone.Synth().toDestination()
-    const note = currentThing.currentBaseNote
+    const note = currentIntervalMetaData.currentBaseNote
 
     const onClickBase = () => {
         synth.triggerAttackRelease(note, "8n");
     }
     const onClickBaseConfirm = () => {
-        synth.triggerAttackRelease(pitchIncrease(note, currentThing.currentInterval), "8n");
+        synth.triggerAttackRelease(pitchIncrease(note, currentIntervalMetaData.currentInterval), "8n");
     }
     const onClickNext = () => {
-        setCurrentThing(findCurrentThing(options))
+        setCurrentIntervalMetaData(findNextInterval(options))
     }
 
-
-    return <div>
-        <div>
-            <button onClick={onClickBase}>Play</button>
+    return <div className={style.container}>
+        <div className={style.thing}>
+            <p>
+                Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
+            </p>
+            <button onClick={onClickBase}>Play again</button>
             <button onClick={onClickBaseConfirm}>Check</button>
             <button onClick={onClickNext}>next</button>
-            <button onClick={() => {
-                console.log(randomInRange(21, 23))
-            }
-            }>random
-            </button>
         </div>
         <IntervalSelector/>
-        {numberToNote(40)}
-        {JSON.stringify(currentThing)}
     </div>
 }

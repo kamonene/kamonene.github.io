@@ -4,7 +4,7 @@ import style from './home.module.less';
 
 export const Home: FunctionComponent = () => {
     return <div className={style.home}>
-        <div>
+        <div className={style.container}>
             <h3>Relative pitch</h3>
             <p>ducks ducks ducks</p>
             <div className={style.divider}/>
