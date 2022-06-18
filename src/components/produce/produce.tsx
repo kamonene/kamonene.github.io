@@ -41,7 +41,8 @@ export const Produce: FunctionComponent = () => {
             return () => {
                 document.removeEventListener('keyup', keyup)
                 document.removeEventListener('keydown', keydown)
-
+                augmentedSynth.triggerRelease()
+                baseNoteSynth.triggerRelease()
             }
         }, [currentIntervalMetaData, started]
     )
