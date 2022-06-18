@@ -95,11 +95,12 @@ export const Produce: FunctionComponent = () => {
 
     return <div className={style.container}>
         <div className={style.thing}>
-
-            {!started && <button onClick={() => {
-                setStarted(true)
-            }
-            }>Get started </button>}
+            <div>
+                <label htmlFor={'autoplay'}>Autoplay</label>
+                <input id={'autoplay'} type={'checkbox'} onClick={() => {
+                    setStarted(!started)
+                }}/>
+            </div>
             <p>
                 Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
             </p>
