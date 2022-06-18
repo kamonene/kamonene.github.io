@@ -1,13 +1,13 @@
-import React, {FunctionComponent, useContext, useEffect} from 'react'
+import React, {FunctionComponent, useContext} from 'react'
 import {ctx} from "../../../App";
-import {intervals} from "../../../utils/utils";
+
 import style from './interval-selector.module.less'
+import {intervals} from "../../../utils/constants";
 
 
 export const IntervalSelector: FunctionComponent = () => {
     const {options, setOptions} = useContext(ctx)
     const activeIntervals = options.activeIntervals
-
 
 
     return <div className={style.container}>

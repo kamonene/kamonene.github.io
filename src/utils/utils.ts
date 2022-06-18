@@ -1,3 +1,6 @@
+import {Options} from "../App";
+import {Interval, intervals, notes} from "./constants";
+
 export const noteToNumber = (note: string): number => {
     const octave: number = Number.parseInt(note[note.length - 1])
     const offset: number = notes.findIndex(item =>
@@ -14,65 +17,23 @@ export const numberToNote = (number: number): string => {
 export const pitchIncrease = (note: string, steps: number) =>
     numberToNote(noteToNumber(note) + steps)
 
-export const enum Note {
-    'C' = 'C',
-    'C#' = 'C#',
-    'D' = 'D',
-    'D#' = 'D#',
-    'E' = 'E',
-    'F' = 'F',
-    'F#' = 'F#',
-    'G' = 'G',
-    'G#' = 'G#',
-    'A' = 'A',
-    'A#' = 'A#',
-    'B' = 'B'
+interface CurrentIntervalMetadata {
+    currentIntervalName: Interval,
+    currentInterval: number,
+    currentBaseNote: string
 }
 
-export const notes = [
-    Note['C'],
-    Note['C#'],
-    Note['D'],
-    Note['D#'],
-    Note['E'],
-    Note['F'],
-    Note['F#'],
-    Note['G'],
-    Note['G#'],
-    Note['A'],
-    Note['A#'],
-    Note['B'],
-]
-
-export const enum Interval {
-    'Perfect unison' = 'Perfect unison',
-    'Minor second' = 'Minor second',
-    'Major second' = 'Major second',
-    'Minor third' = 'Minor third',
-    'Major third' = 'Major third',
-    'Perfect fourth' = 'Perfect fourth',
-    'Tritone' = 'Tritone',
-    'Perfect fifth' = 'Perfect fifth',
-    'Minor sixth' = 'Minor sixth',
-    'Major sixth' = 'Major sixth',
-    'Minor seventh' = 'Minor seventh',
-    'Major seventh' = 'Major seventh',
-    'Perfect octave' = 'Perfect octave',
+const randomInRange = (lower: number, upper: number): number => {
+    const random = Math.floor(Math.random() * (upper - lower))
+    return random + lower
 }
-
-export const intervals = [
-    Interval['Perfect unison'],
-    Interval['Minor second'],
-    Interval['Major second'],
-    Interval['Minor third'],
-    Interval['Major third'],
-    Interval['Perfect fourth'],
-    Interval['Tritone'],
-    Interval['Perfect fifth'],
-    Interval['Minor sixth'],
-    Interval['Major sixth'],
-    Interval['Minor seventh'],
-    Interval['Major seventh'],
-    Interval['Perfect octave'],
-]
-
+export const findNextInterval = (options: Options): CurrentIntervalMetadata => {
+    const activeIntervals = options.activeIntervals
+    const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
+    const baseNote = numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
+    return {
+        currentIntervalName: current,
+        currentInterval: intervals.findIndex(item => current === item),
+        currentBaseNote: baseNote
+    }
+}
