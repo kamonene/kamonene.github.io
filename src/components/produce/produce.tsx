@@ -15,29 +15,72 @@ const randomInRange = (lower: number, upper: number): number => {
     const random = Math.floor(Math.random() * (upper - lower))
     return random + lower
 }
+const findNextInterval = (options: Options): CurrentIntervalMetadata => {
+    const activeIntervals = options.activeIntervals
+    const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
+    const baseNote = numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
+    console.log(baseNote)
+    return {
+        currentIntervalName: current,
+        currentInterval: intervals.findIndex(item => current === item),
+        currentBaseNote: baseNote
+    }
+}
 
+const synth = new Tone.Synth().toDestination()
 export const Produce: FunctionComponent = () => {
     const {options} = useContext(ctx)
-
-    const findNextInterval = (options: Options): CurrentIntervalMetadata => {
-        const activeIntervals = options.activeIntervals
-        const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
-
-        return {
-            currentIntervalName: current,
-            currentInterval: intervals.findIndex(item => current === item),
-            currentBaseNote: numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
-        }
-    }
-
     const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(findNextInterval(options))
+    const [started, setStarted] = useState(false)
+    useEffect(() => {
+            if (started) {
+                synth.triggerAttackRelease(currentIntervalMetaData.currentBaseNote, '8n')
+            }
+            const synth1 = new Tone.Synth().toDestination()
+            const synth2 = new Tone.Synth().toDestination()
+            const keydown = (event: KeyboardEvent) => {
+                if (event.key === '1' && !event.repeat) {
+                    synth1.triggerAttack(currentIntervalMetaData.currentBaseNote)
+                }
+                if (event.key === '2' && !event.repeat) {
+                    synth2.triggerAttack(pitchIncrease(note, currentIntervalMetaData.currentInterval));
+                }
+            }
+
+            const keyup = (event: KeyboardEvent) => {
+                if (event.key === '1' && !event.repeat) {
+                    synth1.triggerRelease()
+                }
+                if (event.key === '2' && !event.repeat) {
+                    synth2.triggerRelease()
+
+                }
+            }
+            document.addEventListener('keydown', keydown)
+            document.addEventListener('keyup', keyup)
+            return () => {
+                document.removeEventListener('keyup', keyup)
+                document.removeEventListener('keydown', keydown)
+
+            }
+        }, [currentIntervalMetaData, started]
+    )
 
     useEffect(() => {
-        const nextInterval = findNextInterval(options)
-        setCurrentIntervalMetaData(nextInterval)
+        setCurrentIntervalMetaData(findNextInterval(options))
+        const keyup = (event: KeyboardEvent) => {
+            if (event.key === '3' && !event.repeat) {
+                setCurrentIntervalMetaData(findNextInterval(options))
+            }
+        }
+        document.addEventListener('keyup', keyup)
+        return () => {
+            document.removeEventListener('keyup', keyup)
+
+        }
     }, [options, options.activeIntervals.length])
 
-    const synth = new Tone.Synth().toDestination()
+
     const note = currentIntervalMetaData.currentBaseNote
 
     const onClickBase = () => {
@@ -52,12 +95,17 @@ export const Produce: FunctionComponent = () => {
 
     return <div className={style.container}>
         <div className={style.thing}>
+
+            {!started && <button onClick={() => {
+                setStarted(true)
+            }
+            }>Get started </button>}
             <p>
                 Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
             </p>
-            <button onClick={onClickBase}>Play again</button>
-            <button onClick={onClickBaseConfirm}>Check</button>
-            <button onClick={onClickNext}>next</button>
+            <button onClick={onClickBase}>Play again (1)</button>
+            <button onClick={onClickBaseConfirm}>Check (2)</button>
+            <button onClick={onClickNext}>next (3)</button>
         </div>
         <IntervalSelector/>
     </div>

@@ -10,7 +10,7 @@ export interface Options {
 }
 
 const defaultOptions: Options = {
-    activeIntervals: [Interval["Perfect unison"], Interval["Perfect fifth"]],
+    activeIntervals: [Interval["Perfect fifth"]],
     baseNoteLower: 35,
     baseNoteUpper: 50
 }
