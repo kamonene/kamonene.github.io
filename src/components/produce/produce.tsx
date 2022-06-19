@@ -11,11 +11,8 @@ const synth = new Tone.Synth().toDestination()
 export const Produce: FunctionComponent = () => {
     const {options} = useContext(ctx)
     const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(findNextInterval(options))
-    const [started, setStarted] = useState(false)
     useEffect(() => {
-            if (started) {
-                synth.triggerAttackRelease(currentIntervalMetaData.currentBaseNote, '8n')
-            }
+
             const baseNoteSynth = new Tone.Synth().toDestination()
             const augmentedSynth = new Tone.Synth().toDestination()
             const keydown = (event: KeyboardEvent) => {
@@ -44,7 +41,7 @@ export const Produce: FunctionComponent = () => {
                 augmentedSynth.triggerRelease()
                 baseNoteSynth.triggerRelease()
             }
-        }, [currentIntervalMetaData, started]
+        }, [currentIntervalMetaData]
     )
 
     useEffect(() => {
@@ -75,12 +72,6 @@ export const Produce: FunctionComponent = () => {
 
     return <div className={style.container}>
         <div className={style.thing}>
-            <div>
-                <label htmlFor={'autoplay'}>Autoplay</label>
-                <input id={'autoplay'} type={'checkbox'} onClick={() => {
-                    setStarted(!started)
-                }}/>
-            </div>
             <p>
                 Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
             </p>

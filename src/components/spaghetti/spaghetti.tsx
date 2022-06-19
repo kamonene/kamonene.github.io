@@ -3,14 +3,20 @@ import * as Tone from "tone";
 import {findNextInterval, pitchIncrease} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
 import {ctx} from "../../App";
-import style from './recognize.module.less'
+import style from './spaghetti.module.less'
+import {Mode} from "../home/home";
 
 
 const synth = new Tone.Synth().toDestination()
 
-export const Recognize: FunctionComponent = () => {
+interface Props {
+    mode: Mode
+}
+
+export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
     const {options} = useContext(ctx)
     const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(findNextInterval(options))
+    const [reveal, setReveal] = useState(false)
 
     useEffect(() => {
             const baseNoteSynth = new Tone.Synth().toDestination()
@@ -71,11 +77,16 @@ export const Recognize: FunctionComponent = () => {
     }
 
     return <div className={style.container}>
-        <div className={style.thing}>
-
-            <p>
+        <div className={style.leftArea}>
+            {mode}
+            {mode === Mode.PRODUCE && <p>
                 Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
+            </p>}
+
+            {mode === Mode.RECOGNIZE && <><p>
+                reveal
             </p>
+            </>}
             <button onClick={onClickBase}>Play again (1)</button>
             <button onClick={onClickBaseConfirm}>Check (2)</button>
             <button onClick={onClickNext}>next (3)</button>
