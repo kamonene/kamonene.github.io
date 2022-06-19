@@ -1,5 +1,5 @@
-import {Options} from "../App";
-import {Interval, intervals, notes} from "./constants";
+import {Interval, intervals, notes, Options} from "./constants";
+
 
 export const noteToNumber = (note: string): number => {
     const octave: number = Number.parseInt(note[note.length - 1])
