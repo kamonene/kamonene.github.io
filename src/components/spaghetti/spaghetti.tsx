@@ -55,14 +55,27 @@ export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '3' && !event.repeat) {
                 setCurrentIntervalMetaData(findNextInterval(options))
+                setReveal(false)
+            }
+        }
+        document.addEventListener('keyup', keyup)
+
+        return () => {
+            document.removeEventListener('keyup', keyup)
+        }
+    }, [options, options.activeIntervals.length])
+
+    useEffect(() => {
+        const keyup = (event: KeyboardEvent) => {
+            if (event.key === ' ' && !event.repeat) {
+                setReveal(true)
             }
         }
         document.addEventListener('keyup', keyup)
         return () => {
             document.removeEventListener('keyup', keyup)
         }
-    }, [options, options.activeIntervals.length])
-
+    },[])
 
     const note = currentIntervalMetaData.currentBaseNote
 
@@ -74,18 +87,27 @@ export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
     }
     const onClickNext = () => {
         setCurrentIntervalMetaData(findNextInterval(options))
+        setReveal(false)
     }
 
     return <div className={style.container}>
         <div className={style.leftArea}>
             {mode}
-            {mode === Mode.PRODUCE && <p>
-                Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
-            </p>}
+            {mode === Mode.PRODUCE &&
+                <p>
+                    Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
+                </p>
+            }
 
-            {mode === Mode.RECOGNIZE && <><p>
-                reveal
-            </p>
+            {mode === Mode.RECOGNIZE && <>
+                <button onClick={() => {
+                    setReveal(!reveal)
+                }}>reveal (space)
+                </button>
+                {reveal &&
+                    <p>
+                        {currentIntervalMetaData.currentIntervalName.toLowerCase()}
+                    </p>}
             </>}
             <button onClick={onClickBase}>Play again (1)</button>
             <button onClick={onClickBaseConfirm}>Check (2)</button>

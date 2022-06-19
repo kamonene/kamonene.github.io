@@ -32,8 +32,8 @@ export const Home: FunctionComponent = () => {
                 {toggle ? 'Switch to recognizing (4)' : 'Switch to producing (4)'}
             </button>
             <div className={style.divider}/>
-            {toggle && <Spaghetti mode={Mode.PRODUCE}/>}
-            {!toggle && <Spaghetti mode={Mode.RECOGNIZE}/>}
+            {toggle && <Spaghetti mode={Mode.RECOGNIZE}/>}
+            {!toggle && <Spaghetti mode={Mode.PRODUCE}/>}
         </div>
     </div>
 }
