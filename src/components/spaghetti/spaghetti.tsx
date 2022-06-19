@@ -75,7 +75,7 @@ export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
         return () => {
             document.removeEventListener('keyup', keyup)
         }
-    },[])
+    }, [])
 
     const note = currentIntervalMetaData.currentBaseNote
 
@@ -99,19 +99,20 @@ export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
                 </p>
             }
 
+
+            <button onClick={onClickBase}>Play first (1)</button>
+            <button onClick={onClickBaseConfirm}>Play second (2)</button>
+            <button onClick={onClickNext}>Next (3)</button>
             {mode === Mode.RECOGNIZE && <>
                 <button onClick={() => {
                     setReveal(!reveal)
-                }}>reveal (space)
+                }}>Reveal (space)
                 </button>
                 {reveal &&
                     <p>
                         {currentIntervalMetaData.currentIntervalName.toLowerCase()}
                     </p>}
             </>}
-            <button onClick={onClickBase}>Play again (1)</button>
-            <button onClick={onClickBaseConfirm}>Check (2)</button>
-            <button onClick={onClickNext}>next (3)</button>
         </div>
         <IntervalSelector/>
     </div>
