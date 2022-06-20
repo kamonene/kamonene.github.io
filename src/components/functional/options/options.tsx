@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {ctx} from "../../../App";
-import {numberToNote, pitchIncrease} from "../../../utils/utils";
+import {numberToNote} from "../../../utils/utils";
 import * as Tone from "tone";
 import style from './options.module.less'
 import {defaultOptions} from "../../../utils/constants";
