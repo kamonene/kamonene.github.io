@@ -15,6 +15,13 @@ export const Options = () => {
         synth.triggerAttackRelease(numberToNote(options.baseNoteLower), "8n");
     }
     return <div className={style.optionsContainer}>
+        <div className={style.reset}>
+            <button onClick={() => {
+                setOptions(defaultOptions)
+            }
+            }>Reset
+            </button>
+        </div>
         <div className={style.pitchControlContainer}>
             <button onClick={playUpper}>Max: {numberToNote(options.baseNoteUpper)}</button>
             <div className={style.arrows}>
@@ -67,12 +74,33 @@ export const Options = () => {
                 </button>
             </div>
         </div>
-        <div className={style.reset}>
-            <button onClick={() => {
-                setOptions(defaultOptions)
-            }
-            }>Reset
-            </button>
+        <div className={style.allowedDirectionContainer}>
+            <div>
+                <label htmlFor={'ascending'}>Ascending intervals</label>
+                <input
+                    onClick={() => {
+                        if (!options.allowDescending) {
+                            return
+                        }
+                        setOptions({...options, allowAscending: !options.allowAscending})
+                    }}
+                    checked={options.allowAscending}
+                    type={'checkbox'}
+                    id={'ascending'}/>
+            </div>
+            <div>
+                <label htmlFor={'descending'}>Descending intervals</label>
+                <input
+                    onClick={() => {
+                        if (!options.allowAscending) {
+                            return
+                        }
+                        setOptions({...options, allowDescending: !options.allowDescending})
+                    }}
+                    checked={options.allowDescending}
+                    type={'checkbox'}
+                    id={'descending'}/>
+            </div>
         </div>
     </div>
 }

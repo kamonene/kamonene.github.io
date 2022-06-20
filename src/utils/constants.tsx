@@ -66,11 +66,15 @@ export interface Options {
     activeIntervals: Array<Interval>
     baseNoteLower: number,
     baseNoteUpper: number,
+    allowAscending: boolean,
+    allowDescending: boolean,
 
 }
 
 export const defaultOptions: Options = {
     activeIntervals: [Interval["Perfect fifth"]],
     baseNoteLower: 35,
-    baseNoteUpper: 50
+    baseNoteUpper: 50,
+    allowAscending: true,
+    allowDescending: false,
 }

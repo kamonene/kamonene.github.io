@@ -11,7 +11,7 @@ export enum Mode {
 
 export const Home: FunctionComponent = () => {
     const [toggle, setToggle] = useState(true)
-    const [showOptions, setShowOptions] = useState(false)
+    const [showOptions, setShowOptions] = useState(true)
     useEffect(() => {
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '4' && !event.repeat) {
