@@ -18,7 +18,7 @@ function App() {
     const [cookies, setCookie] = useCookies(['options'])
 
     useEffect(() => {
-        setOptions(cookies.options)
+        setOptions({...defaultOptions, ...cookies.options ?? defaultOptions})
     }, [])
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import * as Tone from "tone";
 import {findNextInterval, pitchIncrease} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
 import {ctx} from "../../App";
-import style from './spaghetti.module.less'
+import style from './practice-container.module.less'
 import {Mode} from "../home/home";
 
 
@@ -13,7 +13,7 @@ interface Props {
     mode: Mode
 }
 
-export const Spaghetti: FunctionComponent<Props> = ({mode}: Props) => {
+export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
     const {options} = useContext(ctx)
     const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(findNextInterval(options))
     const [reveal, setReveal] = useState(false)

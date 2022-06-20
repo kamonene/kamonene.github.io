@@ -1,6 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
 import style from './home.module.less';
-import {Spaghetti} from "../spaghetti/spaghetti";
+
+import {PracticeContainer} from "../practice-container/practice-container";
 
 export enum Mode {
     'RECOGNIZE' = 'RECOGNIZE',
@@ -32,8 +33,8 @@ export const Home: FunctionComponent = () => {
                 {toggle ? 'Switch to recognizing (4)' : 'Switch to producing (4)'}
             </button>
             <div className={style.divider}/>
-            {toggle && <Spaghetti mode={Mode.RECOGNIZE}/>}
-            {!toggle && <Spaghetti mode={Mode.PRODUCE}/>}
+            {toggle && <PracticeContainer mode={Mode.RECOGNIZE}/>}
+            {!toggle && <PracticeContainer mode={Mode.PRODUCE}/>}
         </div>
     </div>
 }
