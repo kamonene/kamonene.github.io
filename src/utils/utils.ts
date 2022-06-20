@@ -28,12 +28,21 @@ const randomInRange = (lower: number, upper: number): number => {
     return random + lower
 }
 export const findNextInterval = (options: Options): CurrentIntervalMetadata => {
+    const multipliers = []
+    if (options.allowDescending) {
+        multipliers.push(1)
+    }
+    if (options.allowDescending) {
+        multipliers.push(-1)
+    }
+    const multiplier = multipliers[Math.floor(Math.random() * multipliers.length)]
+
     const activeIntervals = options.activeIntervals
     const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
     const baseNote = numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
     return {
         currentIntervalName: current,
-        currentInterval: intervals.findIndex(item => current === item),
+        currentInterval: intervals.findIndex(item => current === item) * multiplier,
         currentBaseNote: baseNote
     }
 }

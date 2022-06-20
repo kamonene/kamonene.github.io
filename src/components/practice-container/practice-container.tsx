@@ -99,7 +99,6 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
                 </p>
             }
 
-
             <button onClick={onClickBase}>Play first (1)</button>
             <button onClick={onClickBaseConfirm}>Play second (2)</button>
             <button onClick={onClickNext}>Next (3)</button>
