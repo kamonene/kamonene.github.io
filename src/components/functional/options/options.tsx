@@ -23,7 +23,8 @@ export const Options = () => {
             </button>
         </div>
         <div className={style.pitchControlContainer}>
-            <button onClick={playUpper}>Max: {numberToNote(options.baseNoteUpper)}</button>
+            <p className={style.pitchLabel}>Max pitch</p>
+            <button onClick={playUpper}>{numberToNote(options.baseNoteUpper)}</button>
             <div className={style.arrows}>
                 <button onClick={() => {
                     const newPitch = options.baseNoteUpper + 1
@@ -48,8 +49,9 @@ export const Options = () => {
 
         </div>
         <div className={style.pitchControlContainer}>
+            <p className={style.pitchLabel}>Min pitch</p>
+            <button onClick={playLower}>{numberToNote(options.baseNoteLower)}</button>
 
-            <button onClick={playLower}>Min: {numberToNote(options.baseNoteLower)}</button>
             <div className={style.arrows}>
                 <button onClick={() => {
                     if (options.baseNoteUpper - options.baseNoteLower < 13) {

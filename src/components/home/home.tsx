@@ -9,7 +9,7 @@ import {ctx} from "../../App";
 
 export const Home: FunctionComponent = () => {
     const {options, setOptions} = useContext(ctx);
-    const [showOptions, setShowOptions] = useState(false)
+    const [showOptions, setShowOptions] = useState(true)
     useEffect(() => {
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '4' && !event.repeat) {
