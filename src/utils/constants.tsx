@@ -61,6 +61,11 @@ export const intervals = [
     Interval['Perfect octave'],
 ]
 
+export enum Mode {
+    'RECOGNIZE' = 'RECOGNIZE',
+    'PRODUCE' = 'PRODUCE',
+}
+
 
 export interface Options {
     activeIntervals: Array<Interval>
@@ -68,7 +73,7 @@ export interface Options {
     baseNoteUpper: number,
     allowAscending: boolean,
     allowDescending: boolean,
-
+    mode: Mode,
 }
 
 export const defaultOptions: Options = {
@@ -77,4 +82,5 @@ export const defaultOptions: Options = {
     baseNoteUpper: 50,
     allowAscending: true,
     allowDescending: false,
+    mode: Mode.PRODUCE,
 }

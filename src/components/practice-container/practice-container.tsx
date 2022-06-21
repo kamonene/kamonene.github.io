@@ -4,7 +4,7 @@ import {findNextInterval, noteToNumber, pitchIncrease} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
 import {ctx} from "../../App";
 import style from './practice-container.module.less'
-import {Mode} from "../home/home";
+import {Mode} from "../../utils/constants";
 
 
 interface Props {
