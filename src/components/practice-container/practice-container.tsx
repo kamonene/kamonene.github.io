@@ -78,7 +78,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
 
     const note = currentIntervalMetaData.currentBaseNote
 
-    const onClickBase = (event) => {
+    const onClickBase = () => {
         const synth = new Tone.Synth().toDestination()
         synth.triggerAttackRelease(note, "3n");
 
