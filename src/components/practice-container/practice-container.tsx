@@ -7,8 +7,6 @@ import style from './practice-container.module.less'
 import {Mode} from "../home/home";
 
 
-const synth = new Tone.Synth().toDestination()
-
 interface Props {
     mode: Mode
 }
@@ -80,9 +78,12 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
     const note = currentIntervalMetaData.currentBaseNote
 
     const onClickBase = () => {
+
+        const synth = new Tone.Synth().toDestination()
         synth.triggerAttackRelease(note, "8n");
     }
     const onClickBaseConfirm = () => {
+        const synth = new Tone.Synth().toDestination()
         synth.triggerAttackRelease(pitchIncrease(note, currentIntervalMetaData.currentInterval), "8n");
     }
     const onClickNext = () => {
