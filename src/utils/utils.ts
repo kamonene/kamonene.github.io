@@ -17,17 +17,18 @@ export const numberToNote = (number: number): string => {
 export const pitchIncrease = (note: string, steps: number) =>
     numberToNote(noteToNumber(note) + steps)
 
-interface CurrentIntervalMetadata {
-    currentIntervalName: Interval,
-    currentInterval: number,
-    currentBaseNote: string
+interface IntervalMetaData {
+    intervalName: Interval,
+    interval: number,
+    baseNote: string,
+    multiplier: number,
 }
 
 const randomInRange = (lower: number, upper: number): number => {
     const random = Math.floor(Math.random() * (upper - lower))
     return random + lower
 }
-export const findNextInterval = (options: Options): CurrentIntervalMetadata => {
+export const findNextInterval = (options: Options): IntervalMetaData => {
 
     const multipliers = []
     if (options.allowAscending) {
@@ -39,16 +40,17 @@ export const findNextInterval = (options: Options): CurrentIntervalMetadata => {
     const multiplier = multipliers[Math.floor(Math.random() * multipliers.length)]
 
     const activeIntervals = options.activeIntervals
-    const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
-    const currentInterval = intervals.findIndex(item => current.toString() === item.toString())
+    const intervalName = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
+    const currentInterval = intervals.findIndex(item => intervalName.toString() === item.toString())
 
 
     const baseNote = numberToNote(randomInRange(
         multiplier === -1 ? options.baseNoteLower + currentInterval : options.baseNoteLower,
         multiplier === 1 ? options.baseNoteUpper - currentInterval : options.baseNoteUpper))
     return {
-        currentIntervalName: current,
-        currentInterval: currentInterval * multiplier,
-        currentBaseNote: baseNote
+        intervalName,
+        interval: currentInterval * multiplier,
+        baseNote,
+        multiplier
     }
 }

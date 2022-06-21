@@ -21,10 +21,10 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
             const augmentedSynth = new Tone.Synth().toDestination()
             const keydown = (event: KeyboardEvent) => {
                 if (event.key === '1' && !event.repeat) {
-                    baseNoteSynth.triggerAttack(currentIntervalMetaData.currentBaseNote)
+                    baseNoteSynth.triggerAttack(currentIntervalMetaData.baseNote)
                 }
                 if (event.key === '2' && !event.repeat) {
-                    augmentedSynth.triggerAttack(pitchIncrease(note, currentIntervalMetaData.currentInterval));
+                    augmentedSynth.triggerAttack(pitchIncrease(note, currentIntervalMetaData.interval));
                 }
             }
 
@@ -80,7 +80,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         }
     }, [])
 
-    const note = currentIntervalMetaData.currentBaseNote
+    const note = currentIntervalMetaData.baseNote
 
     const onClickBase = () => {
         const synth = new Tone.Synth().toDestination()
@@ -89,7 +89,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
     }
     const onClickBaseConfirm = () => {
         const synth = new Tone.Synth().toDestination()
-        const pitchAsString = pitchIncrease(note, currentIntervalMetaData.currentInterval)
+        const pitchAsString = pitchIncrease(note, currentIntervalMetaData.interval)
         synth.triggerAttackRelease(pitchAsString, "3n");
     }
     const onClickNext = () => {
@@ -105,12 +105,12 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         <div className={style.leftArea}>
             {mode === Mode.PRODUCE &&
                 <p>
-                    Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
+                    Produce a {currentIntervalMetaData.intervalName.toLowerCase()} from the base note
                 </p>
             }
             {mode === Mode.RECOGNIZE &&
                 <p className={reveal ? '' : style.hide}>
-                    {currentIntervalMetaData.currentIntervalName}
+                    {currentIntervalMetaData.intervalName}
                 </p>
             }
             <button
