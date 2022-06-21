@@ -53,6 +53,10 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         setCurrentIntervalMetaData(findNextInterval(options))
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '3' && !event.repeat) {
+                if (mode === Mode.RECOGNIZE && !reveal) {
+                    setReveal(true)
+                    return
+                }
                 setCurrentIntervalMetaData(findNextInterval(options))
                 setReveal(false)
             }
@@ -62,7 +66,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         return () => {
             document.removeEventListener('keyup', keyup)
         }
-    }, [options, options.activeIntervals.length])
+    }, [options, options.activeIntervals.length, reveal])
 
     useEffect(() => {
         const keyup = (event: KeyboardEvent) => {
@@ -89,33 +93,37 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         synth.triggerAttackRelease(pitchAsString, "3n");
     }
     const onClickNext = () => {
+        if (mode === Mode.RECOGNIZE && !reveal) {
+            setReveal(true)
+            return
+        }
         setCurrentIntervalMetaData(findNextInterval(options))
         setReveal(false)
     }
 
     return <div className={style.container}>
         <div className={style.leftArea}>
-            {mode}
             {mode === Mode.PRODUCE &&
                 <p>
                     Produce a {currentIntervalMetaData.currentIntervalName.toLowerCase()} from the base note
                 </p>
             }
-
+            {mode === Mode.RECOGNIZE &&
+                <p className={reveal ? '' : style.hide}>
+                    {currentIntervalMetaData.currentIntervalName}
+                </p>
+            }
             <button
                 onClick={onClickBase}>Play first (1)
             </button>
             <button onClick={onClickBaseConfirm}>Play second (2)</button>
-            <button onClick={onClickNext}>Next (3)</button>
+            <button onClick={onClickNext}>{mode === Mode.RECOGNIZE && !reveal ? 'Reveal' : 'Next'} (3)</button>
             {mode === Mode.RECOGNIZE && <>
                 <button onClick={() => {
                     setReveal(!reveal)
                 }}>Reveal (space)
                 </button>
-                {reveal &&
-                    <p>
-                        {currentIntervalMetaData.currentIntervalName.toLowerCase()}
-                    </p>}
+
             </>}
         </div>
         <IntervalSelector/>

@@ -11,7 +11,7 @@ export enum Mode {
 
 export const Home: FunctionComponent = () => {
     const [toggle, setToggle] = useState(true)
-    const [showOptions, setShowOptions] = useState(true)
+    const [showOptions, setShowOptions] = useState(false)
     useEffect(() => {
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '4' && !event.repeat) {
@@ -32,12 +32,12 @@ export const Home: FunctionComponent = () => {
                 ≡
             </button>
             <h3>Relative pitch</h3>
-            <p>{toggle ? 'Practice producing the interval' : 'Practice recognizing the interval'}</p>
+            <p>{toggle ? 'Practice recognizing the interval' : 'Practice producing the interval'}</p>
 
             <button onClick={() => {
                 setToggle(!toggle)
             }}>
-                {toggle ? 'Switch to recognizing (4)' : 'Switch to producing (4)'}
+                Change practice mode (4)
             </button>
             <div className={style.divider}/>
 
