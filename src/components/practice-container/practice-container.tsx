@@ -50,7 +50,9 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
     )
 
     useEffect(() => {
-        setCurrentIntervalMetaData(findNextInterval(options))
+        if (!reveal) {
+            setCurrentIntervalMetaData(findNextInterval(options))
+        }
         const keyup = (event: KeyboardEvent) => {
             if (event.key === '3' && !event.repeat) {
                 if (mode === Mode.RECOGNIZE && !reveal) {
@@ -105,7 +107,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         <div className={style.leftArea}>
             {mode === Mode.PRODUCE &&
                 <p>
-                    Produce a {currentIntervalMetaData.intervalName.toLowerCase()} from the base note
+                    {currentIntervalMetaData.multiplier === 1 ? 'Ascending' : 'Descending'} {currentIntervalMetaData.intervalName.toLowerCase()}
                 </p>
             }
             {mode === Mode.RECOGNIZE &&

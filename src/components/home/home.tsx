@@ -31,7 +31,7 @@ export const Home: FunctionComponent = () => {
             }}>
                 ≡
             </button>
-            <h3>Relative pitch</h3>
+            <h3 className={style.title}>Relative pitch</h3>
             <p className={style.infoText}>{toggle ? 'Identify the interval' : 'Produce the given interval from the base note'}</p>
 
             <button onClick={() => {
