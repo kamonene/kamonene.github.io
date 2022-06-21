@@ -26,7 +26,6 @@ export const Options = () => {
             <button onClick={playUpper}>Max: {numberToNote(options.baseNoteUpper)}</button>
             <div className={style.arrows}>
                 <button onClick={() => {
-
                     const newPitch = options.baseNoteUpper + 1
                     setOptions({...options, baseNoteUpper: newPitch})
                     synth.triggerAttackRelease(numberToNote(newPitch), "8n");
@@ -78,7 +77,7 @@ export const Options = () => {
             <div>
                 <label htmlFor={'ascending'}>Ascending intervals</label>
                 <input
-                    onClick={() => {
+                    onChange={() => {
                         if (!options.allowDescending) {
                             return
                         }
@@ -91,7 +90,7 @@ export const Options = () => {
             <div>
                 <label htmlFor={'descending'}>Descending intervals</label>
                 <input
-                    onClick={() => {
+                    onChange={() => {
                         if (!options.allowAscending) {
                             return
                         }

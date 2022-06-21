@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
 import * as Tone from "tone";
-import {findNextInterval, pitchIncrease} from "../../utils/utils";
+import {findNextInterval, noteToNumber, pitchIncrease} from "../../utils/utils";
 import {IntervalSelector} from "../functional/pitch-selector/interval-selector";
 import {ctx} from "../../App";
 import style from './practice-container.module.less'
@@ -84,7 +84,8 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
     }
     const onClickBaseConfirm = () => {
         const synth = new Tone.Synth().toDestination()
-        synth.triggerAttackRelease(pitchIncrease(note, currentIntervalMetaData.currentInterval), "8n");
+        const pitchAsString = pitchIncrease(note, currentIntervalMetaData.currentInterval)
+        synth.triggerAttackRelease(pitchAsString, "8n");
     }
     const onClickNext = () => {
         setCurrentIntervalMetaData(findNextInterval(options))

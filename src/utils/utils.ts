@@ -42,7 +42,10 @@ export const findNextInterval = (options: Options): CurrentIntervalMetadata => {
     const current = activeIntervals[Math.floor(Math.random() * activeIntervals.length)]
     const currentInterval = intervals.findIndex(item => current.toString() === item.toString())
 
-    const baseNote = numberToNote(randomInRange(options.baseNoteLower, options.baseNoteUpper))
+
+    const baseNote = numberToNote(randomInRange(
+        multiplier === -1 ? options.baseNoteLower + currentInterval : options.baseNoteLower,
+        multiplier === 1 ? options.baseNoteUpper - currentInterval : options.baseNoteUpper))
     return {
         currentIntervalName: current,
         currentInterval: currentInterval * multiplier,
