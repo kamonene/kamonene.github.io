@@ -34,14 +34,15 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
                 }
                 if (event.key === '2' && !event.repeat) {
                     augmentedSynth.triggerRelease()
-
                 }
             }
+
             document.addEventListener('keydown', keydown)
             document.addEventListener('keyup', keyup)
             return () => {
                 document.removeEventListener('keyup', keyup)
                 document.removeEventListener('keydown', keydown)
+
                 augmentedSynth.triggerRelease()
                 baseNoteSynth.triggerRelease()
             }
@@ -77,15 +78,15 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
 
     const note = currentIntervalMetaData.currentBaseNote
 
-    const onClickBase = () => {
-
+    const onClickBase = (event) => {
         const synth = new Tone.Synth().toDestination()
-        synth.triggerAttackRelease(note, "8n");
+        synth.triggerAttackRelease(note, "3n");
+
     }
     const onClickBaseConfirm = () => {
         const synth = new Tone.Synth().toDestination()
         const pitchAsString = pitchIncrease(note, currentIntervalMetaData.currentInterval)
-        synth.triggerAttackRelease(pitchAsString, "8n");
+        synth.triggerAttackRelease(pitchAsString, "3n");
     }
     const onClickNext = () => {
         setCurrentIntervalMetaData(findNextInterval(options))
@@ -101,7 +102,9 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
                 </p>
             }
 
-            <button onClick={onClickBase}>Play first (1)</button>
+            <button
+                onClick={onClickBase}>Play first (1)
+            </button>
             <button onClick={onClickBaseConfirm}>Play second (2)</button>
             <button onClick={onClickNext}>Next (3)</button>
             {mode === Mode.RECOGNIZE && <>
