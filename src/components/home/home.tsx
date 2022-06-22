@@ -21,7 +21,7 @@ export const Home: FunctionComponent = () => {
         return () => {
             document.removeEventListener("keyup", keyup)
         }
-    }, [options.mode])
+    }, [options])
 
     return <div className={style.home}>
         <div className={style.container}>
