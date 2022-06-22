@@ -120,13 +120,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
             </button>
             <button onClick={onClickBaseConfirm}>Play second (2)</button>
             <button onClick={onClickNext}>{mode === Mode.RECOGNIZE && !reveal ? 'Reveal' : 'Next'} (3)</button>
-            {mode === Mode.RECOGNIZE && <>
-                <button onClick={() => {
-                    setReveal(!reveal)
-                }}>Reveal (space)
-                </button>
 
-            </>}
         </div>
         <IntervalSelector/>
     </div>
