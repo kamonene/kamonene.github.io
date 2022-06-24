@@ -70,18 +70,6 @@ export const PracticeContainer: FunctionComponent<Props> = ({mode}: Props) => {
         }
     }, [options, options.activeIntervals.length, reveal])
 
-    useEffect(() => {
-        const keyup = (event: KeyboardEvent) => {
-            if (event.key === ' ' && !event.repeat) {
-                setReveal(true)
-            }
-        }
-        document.addEventListener('keyup', keyup)
-        return () => {
-            document.removeEventListener('keyup', keyup)
-        }
-    }, [])
-
     const note = currentIntervalMetaData.baseNote
 
     const onClickBase = () => {
