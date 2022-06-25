@@ -102,21 +102,26 @@ export const Ducks = ({ currentInterval }: Props) => {
       }
       if (event.code === "Digit2" && !event.repeat) {
         synth1.triggerRelease();
+        synth2.triggerRelease();
       }
       if (event.code === "Digit3" && !event.repeat) {
         synth3.triggerRelease();
+        synth4.triggerRelease();
       }
       if (event.code === "Digit4" && !event.repeat) {
         synth5.triggerRelease();
+        synth6.triggerRelease();
       }
       if (event.code === "Digit5" && !event.repeat) {
         synth7.triggerRelease();
       }
       if (event.code === "Digit6" && !event.repeat) {
+        synth8.triggerRelease();
         synth9.triggerRelease();
       }
       if (event.code === "Digit7" && !event.repeat) {
         synth10.triggerRelease();
+        synth11.triggerRelease();
       }
       if (event.code === "Digit8" && !event.repeat) {
         synth12.triggerRelease();
