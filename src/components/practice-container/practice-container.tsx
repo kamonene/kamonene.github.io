@@ -28,6 +28,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
   useEffect(() => {
     const baseNoteSynth = new Tone.Synth().toDestination();
     const augmentedSynth = new Tone.Synth().toDestination();
+
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "q" && !event.repeat) {
         baseNoteSynth.triggerAttack(currentIntervalMetaData.baseNote);
@@ -59,6 +60,8 @@ export const PracticeContainer: FunctionComponent<Props> = ({
 
       augmentedSynth.triggerRelease();
       baseNoteSynth.triggerRelease();
+      augmentedSynth.dispose();
+      baseNoteSynth.dispose();
     };
   }, [currentIntervalMetaData]);
 
