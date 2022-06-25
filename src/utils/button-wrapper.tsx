@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
-import useLongPress from "../../../utils/use-long-press";
+import useLongPress from "./use-long-press";
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   longPress: () => void;

@@ -10,6 +10,7 @@ import { IntervalSelector } from "../functional/interval-selector/interval-selec
 import { ctx } from "../../App";
 import style from "./practice-container.module.less";
 import { Mode } from "../../utils/constants";
+import { Ducks } from "./ducks/ducks";
 
 interface Props {
   mode: Mode;
@@ -28,10 +29,10 @@ export const PracticeContainer: FunctionComponent<Props> = ({
     const baseNoteSynth = new Tone.Synth().toDestination();
     const augmentedSynth = new Tone.Synth().toDestination();
     const keydown = (event: KeyboardEvent) => {
-      if (event.key === "1" && !event.repeat) {
+      if (event.key === "q" && !event.repeat) {
         baseNoteSynth.triggerAttack(currentIntervalMetaData.baseNote);
       }
-      if (event.key === "2" && !event.repeat) {
+      if (event.key === "w" && !event.repeat) {
         augmentedSynth.triggerAttack(
           pitchIncrease(
             currentIntervalMetaData.baseNote,
@@ -42,10 +43,10 @@ export const PracticeContainer: FunctionComponent<Props> = ({
     };
 
     const keyup = (event: KeyboardEvent) => {
-      if (event.key === "1" && !event.repeat) {
+      if (event.key === "q" && !event.repeat) {
         baseNoteSynth.triggerRelease();
       }
-      if (event.key === "2" && !event.repeat) {
+      if (event.key === "w" && !event.repeat) {
         augmentedSynth.triggerRelease();
       }
     };
@@ -66,7 +67,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
       setCurrentIntervalMetaData(findNextInterval(options));
     }
     const keyup = (event: KeyboardEvent) => {
-      if (event.key === "3" && !event.repeat) {
+      if (event.key === "e" && !event.repeat) {
         if (mode === Mode.RECOGNIZE && !reveal) {
           setReveal(true);
           return;
@@ -104,6 +105,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
 
   return (
     <div className={style.container}>
+      <Ducks currentInterval={currentIntervalMetaData} />
       <div className={style.leftArea}>
         {mode === Mode.PRODUCE && (
           <p>
@@ -118,10 +120,10 @@ export const PracticeContainer: FunctionComponent<Props> = ({
             {currentIntervalMetaData.intervalName}
           </p>
         )}
-        <button onClick={onClickBase}>Play first (1)</button>
-        <button onClick={onClickBaseConfirm}>Play second (2)</button>
+        <button onClick={onClickBase}>Play first (q)</button>
+        <button onClick={onClickBaseConfirm}>Play second (w)</button>
         <button onClick={onClickNext}>
-          {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (3)
+          {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
         </button>
       </div>
       <IntervalSelector currentInterval={currentIntervalMetaData} />

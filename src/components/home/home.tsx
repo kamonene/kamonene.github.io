@@ -16,7 +16,7 @@ export const Home: FunctionComponent = () => {
   const [showOptions, setShowOptions] = useState(false);
   useEffect(() => {
     const keyup = (event: KeyboardEvent) => {
-      if (event.key === "4" && !event.repeat) {
+      if (event.key === "r" && !event.repeat) {
         const nextMode =
           options.mode === Mode.PRODUCE ? Mode.RECOGNIZE : Mode.PRODUCE;
         setOptions({ ...options, mode: nextMode });
