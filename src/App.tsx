@@ -16,14 +16,17 @@ const cookieName = "options";
 function App() {
   const [options, setOptions] = useState<Options>(defaultOptions);
   const [cookies, setCookie] = useCookies(["options"]);
-
+  const [firstLoaded, setFirstLoaded] = useState(true);
   useEffect(() => {
-    setOptions({ ...defaultOptions, ...(cookies.options ?? defaultOptions) });
-  }, []);
+    if (firstLoaded) {
+      setFirstLoaded(false);
+      setOptions({ ...defaultOptions, ...(cookies.options ?? defaultOptions) });
+    }
+  }, [cookies.options, firstLoaded]);
 
   useEffect(() => {
     setCookie(cookieName, options);
-  }, [options]);
+  }, [options, setCookie]);
 
   return (
     <div className={"appContainer"}>
