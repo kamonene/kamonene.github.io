@@ -9,8 +9,6 @@ import {
   numberToNote,
 } from "../../../utils/utils";
 import * as Tone from "tone";
-import useLongPress from "../../../utils/use-long-press";
-import { ButtonWrapper } from "./button-wrapper";
 
 interface Props {
   currentInterval: IntervalMetaData;
