@@ -53,7 +53,7 @@ export const Home: FunctionComponent = () => {
             setOptions({ ...options, mode: nextMode });
           }}
         >
-          Change practice mode (4)
+          Change practice mode (r)
         </button>
         <div className={style.divider} />
 

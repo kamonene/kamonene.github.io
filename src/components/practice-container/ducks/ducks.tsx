@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const Ducks = ({ currentInterval }: Props) => {
-  console.log(currentInterval.interval);
   useEffect(() => {
     const synth0 = new Tone.Synth().toDestination();
     const synth1 = new Tone.Synth().toDestination();
