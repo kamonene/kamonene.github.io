@@ -61,7 +61,7 @@ export const Ducks = ({ currentInterval }: Props) => {
           numberToNote(noteToNumber(currentInterval.baseNote) + 6)
         );
       }
-      if (event.code === "Digit5" && !event.repeat && !event.shiftKey) {
+      if (event.code === "Digit5" && !event.repeat) {
         synth7.triggerAttack(
           numberToNote(noteToNumber(currentInterval.baseNote) + 7)
         );
@@ -86,7 +86,7 @@ export const Ducks = ({ currentInterval }: Props) => {
           numberToNote(noteToNumber(currentInterval.baseNote) + 11)
         );
       }
-      if (event.code === "Digit8" && !event.repeat && !event.shiftKey) {
+      if (event.code === "Digit8" && !event.repeat) {
         synth12.triggerAttack(
           numberToNote(noteToNumber(currentInterval.baseNote) + 12)
         );
@@ -94,41 +94,29 @@ export const Ducks = ({ currentInterval }: Props) => {
     };
 
     const keyup = (event: KeyboardEvent) => {
+      console.log(event.code);
+      console.log(event.key);
+      console.log(event.keyCode);
       if (event.code === "Digit1" && !event.repeat) {
         synth0.triggerRelease();
       }
       if (event.code === "Digit2" && !event.repeat) {
         synth1.triggerRelease();
       }
-      if (event.code === "Digit2" && !event.repeat) {
-        synth2.triggerRelease();
-      }
       if (event.code === "Digit3" && !event.repeat) {
         synth3.triggerRelease();
-      }
-      if (event.code === "Digit3" && !event.repeat) {
-        synth4.triggerRelease();
       }
       if (event.code === "Digit4" && !event.repeat) {
         synth5.triggerRelease();
       }
-      if (event.code === "Digit4" && !event.repeat) {
-        synth6.triggerRelease();
-      }
       if (event.code === "Digit5" && !event.repeat) {
         synth7.triggerRelease();
-      }
-      if (event.code === "Digit6" && !event.repeat) {
-        synth8.triggerRelease();
       }
       if (event.code === "Digit6" && !event.repeat) {
         synth9.triggerRelease();
       }
       if (event.code === "Digit7" && !event.repeat) {
         synth10.triggerRelease();
-      }
-      if (event.code === "Digit7" && !event.repeat) {
-        synth11.triggerRelease();
       }
       if (event.code === "Digit8" && !event.repeat) {
         synth12.triggerRelease();
