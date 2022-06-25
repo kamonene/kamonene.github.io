@@ -1,5 +1,5 @@
 
-export const enum Note {
+export enum Note {
     'C' = 'C',
     'C#' = 'C#',
     'D' = 'D',
@@ -29,7 +29,7 @@ export const notes = [
     Note['B'],
 ]
 
-export const enum Interval {
+export enum Interval {
     'Perfect unison' = 'Perfect unison',
     'Minor second' = 'Minor second',
     'Major second' = 'Major second',
