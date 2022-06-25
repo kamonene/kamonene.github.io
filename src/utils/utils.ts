@@ -16,7 +16,7 @@ export const numberToNote = (number: number): string => {
 export const pitchIncrease = (note: string, steps: number) =>
   numberToNote(noteToNumber(note) + steps);
 
-interface IntervalMetaData {
+export interface IntervalMetaData {
   intervalName: Interval;
   interval: number;
   baseNote: string;

@@ -124,7 +124,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
           {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (3)
         </button>
       </div>
-      <IntervalSelector />
+      <IntervalSelector currentInterval={currentIntervalMetaData} />
     </div>
   );
 };
