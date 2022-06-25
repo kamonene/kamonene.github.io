@@ -94,9 +94,6 @@ export const Ducks = ({ currentInterval }: Props) => {
     };
 
     const keyup = (event: KeyboardEvent) => {
-      console.log(event.code);
-      console.log(event.key);
-      console.log(event.keyCode);
       if (event.code === "Digit1" && !event.repeat) {
         synth0.triggerRelease();
       }
