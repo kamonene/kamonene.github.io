@@ -11,6 +11,7 @@ interface Props {
 }
 
 export const Ducks = ({ currentInterval }: Props) => {
+  console.log(currentInterval.interval);
   useEffect(() => {
     const synth0 = new Tone.Synth().toDestination();
     const synth1 = new Tone.Synth().toDestination();
@@ -33,62 +34,97 @@ export const Ducks = ({ currentInterval }: Props) => {
       }
       if (event.code === "Digit2" && !event.repeat && !event.shiftKey) {
         synth1.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 1)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) + currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit2" && !event.repeat && event.shiftKey) {
         synth2.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 2)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              2 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit3" && !event.repeat && !event.shiftKey) {
         synth3.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 3)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              3 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit3" && !event.repeat && event.shiftKey) {
         synth4.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 4)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              4 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit4" && !event.repeat && !event.shiftKey) {
         synth5.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 5)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              5 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit4" && !event.repeat && event.shiftKey) {
         synth6.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 6)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              6 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit5" && !event.repeat) {
         synth7.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 7)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              7 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit6" && !event.repeat && !event.shiftKey) {
         synth8.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 8)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              8 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit6" && !event.repeat && event.shiftKey) {
         synth9.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 9)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              9 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit7" && !event.repeat && !event.shiftKey) {
         synth10.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 10)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              10 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit7" && !event.repeat && event.shiftKey) {
         synth11.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 11)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              11 * currentInterval.multiplier
+          )
         );
       }
       if (event.code === "Digit8" && !event.repeat) {
         synth12.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote) + 12)
+          numberToNote(
+            noteToNumber(currentInterval.baseNote) +
+              12 * currentInterval.multiplier
+          )
         );
       }
     };

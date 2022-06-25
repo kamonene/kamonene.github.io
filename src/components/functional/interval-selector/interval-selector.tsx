@@ -73,7 +73,10 @@ export const IntervalSelector: FunctionComponent<Props> = ({
             onClick={() => {
               const synth = new Tone.Synth().toDestination();
               synth.triggerAttackRelease(
-                numberToNote(noteToNumber(currentInterval.baseNote) + index),
+                numberToNote(
+                  noteToNumber(currentInterval.baseNote) +
+                    index * currentInterval.multiplier
+                ),
                 "3n"
               );
             }}
