@@ -179,6 +179,20 @@ export const Ducks = ({ currentInterval }: Props) => {
       synth10.triggerRelease();
       synth11.triggerRelease();
       synth12.triggerRelease();
+
+      synth0.dispose();
+      synth1.dispose();
+      synth2.dispose();
+      synth3.dispose();
+      synth4.dispose();
+      synth5.dispose();
+      synth6.dispose();
+      synth7.dispose();
+      synth8.dispose();
+      synth9.dispose();
+      synth10.dispose();
+      synth11.dispose();
+      synth12.dispose();
     };
   }, [currentInterval]);
 

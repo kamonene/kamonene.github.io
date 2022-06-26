@@ -1,3 +1,5 @@
+import { Synth } from "tone";
+
 export enum Note {
   "C" = "C",
   "C#" = "C#",
@@ -64,6 +66,10 @@ export const intervals = [
 export enum Mode {
   "RECOGNIZE" = "RECOGNIZE",
   "PRODUCE" = "PRODUCE",
+}
+
+export interface Ref {
+  synth?: Synth;
 }
 
 export interface Options {

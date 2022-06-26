@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext, useEffect, useRef } from "react";
 import { ctx } from "../../../App";
 
 import style from "./interval-selector.module.less";
-import { Interval, intervals } from "../../../utils/constants";
+import { Interval, intervals, Ref } from "../../../utils/constants";
 import {
   IntervalMetaData,
   noteToNumber,
@@ -31,8 +31,19 @@ export const IntervalSelector: FunctionComponent<Props> = ({
       document.removeEventListener("keyup", keyup);
 
       baseNoteSynth.triggerRelease();
+      baseNoteSynth.dispose();
     };
   }, [currentInterval]);
+
+  const ref = useRef<Ref>({ synth: undefined });
+  useEffect(() => {
+    const current = ref.current;
+    current.synth = new Tone.Synth().toDestination();
+    return () => {
+      current.synth?.dispose();
+    };
+  }, []);
+
   const makeOnClick = (interval: Interval) => {
     return () => {
       if (activeIntervals.includes(interval)) {
@@ -71,8 +82,7 @@ export const IntervalSelector: FunctionComponent<Props> = ({
           </button>
           <button
             onClick={() => {
-              const synth = new Tone.Synth().toDestination();
-              synth.triggerAttackRelease(
+              ref.current.synth?.triggerAttackRelease(
                 numberToNote(
                   noteToNumber(currentInterval.baseNote) +
                     index * currentInterval.multiplier

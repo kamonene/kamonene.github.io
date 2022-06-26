@@ -2,6 +2,7 @@ import React, {
   FunctionComponent,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import * as Tone from "tone";
@@ -11,9 +12,15 @@ import { ctx } from "../../App";
 import style from "./practice-container.module.less";
 import { Mode } from "../../utils/constants";
 import { Ducks } from "./ducks/ducks";
+import { Synth } from "tone";
 
 interface Props {
   mode: Mode;
+}
+
+interface Ref {
+  synth1?: Synth;
+  synth2?: Synth;
 }
 
 export const PracticeContainer: FunctionComponent<Props> = ({
@@ -24,7 +31,16 @@ export const PracticeContainer: FunctionComponent<Props> = ({
     findNextInterval(options)
   );
   const [reveal, setReveal] = useState(false);
-
+  const ref = useRef<Ref>({ synth1: undefined, synth2: undefined });
+  useEffect(() => {
+    const current = ref.current;
+    current.synth1 = new Tone.Synth().toDestination();
+    current.synth2 = new Tone.Synth().toDestination();
+    return () => {
+      current.synth1?.dispose();
+      current.synth2?.dispose();
+    };
+  }, []);
   useEffect(() => {
     const baseNoteSynth = new Tone.Synth().toDestination();
     const augmentedSynth = new Tone.Synth().toDestination();
@@ -89,13 +105,11 @@ export const PracticeContainer: FunctionComponent<Props> = ({
   const note = currentIntervalMetaData.baseNote;
 
   const onClickBase = () => {
-    const synth = new Tone.Synth().toDestination();
-    synth.triggerAttackRelease(note, "3n");
+    ref.current.synth1?.triggerAttackRelease(note, "3n");
   };
   const onClickBaseConfirm = () => {
-    const synth = new Tone.Synth().toDestination();
     const pitchAsString = pitchIncrease(note, currentIntervalMetaData.interval);
-    synth.triggerAttackRelease(pitchAsString, "3n");
+    ref.current.synth2?.triggerAttackRelease(pitchAsString, "3n");
   };
   const onClickNext = () => {
     if (mode === Mode.RECOGNIZE && !reveal) {
