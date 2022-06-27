@@ -25,7 +25,7 @@ function App() {
   }, [cookies.options, firstLoaded]);
 
   useEffect(() => {
-    setCookie(cookieName, options);
+    setCookie(cookieName, options, { sameSite: "strict" });
   }, [options, setCookie]);
 
   return (
