@@ -1242,6 +1242,11 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
+fft.js@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/fft.js/-/fft.js-4.0.4.tgz#ffed83a397e58039141c804c1dbe1910dced8e6e"
+  integrity sha512-f9c00hphOgeQTlDyavwTtu6RiK8AIFjD6+jvXkNkpeQ7rirK3uFWVpalkoS4LAwbdX7mfZ8aoBfFVQX1Re/8aw==
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/file-entry-cache/-/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
@@ -1917,6 +1922,13 @@ pify@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/pify/-/pify-4.0.1.tgz"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
+
+pitchy@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/pitchy/-/pitchy-4.0.4.tgz#dfbe6c29ff2440280df54aa637a3c4f3997ccad7"
+  integrity sha512-p7lCB3DGUV92rUf3ebzsA7vhVgMQstXesoFTMeyd6IR/gg4++oSeA9HXmpXUlAcTP6Hyo0nkmHtVKB2DQJDfug==
+  dependencies:
+    fft.js "^4.0.4"
 
 postcss@^8.4.13:
   version "8.4.14"

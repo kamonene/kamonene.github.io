@@ -10,6 +10,7 @@ import { PracticeContainer } from "./practice-container/practice-container";
 import { Options } from "../functional/options/options";
 import { Mode } from "../../utils/constants";
 import { ctx } from "../../App";
+import { VoiceThing } from "./voice-thing/voice-thing";
 
 export const Home: FunctionComponent = () => {
   const { options, setOptions } = useContext(ctx);
@@ -59,6 +60,7 @@ export const Home: FunctionComponent = () => {
 
         {showOptions && <Options />}
         <PracticeContainer mode={options.mode} />
+        {false && <VoiceThing />}
       </div>
     </div>
   );
