@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import style from "./home.module.less";
 
-import { PracticeContainer } from "../practice-container/practice-container";
+import { PracticeContainer } from "./practice-container/practice-container";
 import { Options } from "../functional/options/options";
 import { Mode } from "../../utils/constants";
 import { ctx } from "../../App";

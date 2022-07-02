@@ -6,12 +6,12 @@ import React, {
   useState,
 } from "react";
 import * as Tone from "tone";
-import { findNextInterval, pitchIncrease } from "../../utils/utils";
-import { IntervalSelector } from "../functional/interval-selector/interval-selector";
-import { ctx } from "../../App";
+import { findNextInterval, pitchIncrease } from "../../../utils/utils";
+import { IntervalSelector } from "../../functional/interval-selector/interval-selector";
+import { ctx } from "../../../App";
 import style from "./practice-container.module.less";
-import { Mode } from "../../utils/constants";
-import { Ducks } from "./ducks/ducks";
+import { Mode } from "../../../utils/constants";
+import { KeybindWrapper } from "./keybind-wrapper/keybind-wrapper";
 import { Synth } from "tone";
 
 interface Props {
@@ -122,7 +122,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
 
   return (
     <div className={style.container}>
-      <Ducks currentInterval={currentIntervalMetaData} />
+      <KeybindWrapper currentInterval={currentIntervalMetaData} />
       <div className={style.leftArea}>
         {mode === Mode.PRODUCE && (
           <p>

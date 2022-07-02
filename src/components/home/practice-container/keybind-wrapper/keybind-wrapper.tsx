@@ -2,7 +2,7 @@ import {
   IntervalMetaData,
   noteToNumber,
   numberToNote,
-} from "../../../utils/utils";
+} from "../../../../utils/utils";
 import React, { useEffect } from "react";
 import * as Tone from "tone";
 
@@ -10,7 +10,7 @@ interface Props {
   currentInterval: IntervalMetaData;
 }
 
-export const Ducks = ({ currentInterval }: Props) => {
+export const KeybindWrapper = ({ currentInterval }: Props) => {
   useEffect(() => {
     const synth0 = new Tone.Synth().toDestination();
     const synth1 = new Tone.Synth().toDestination();
