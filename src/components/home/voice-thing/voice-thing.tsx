@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { PitchDetector } from "pitchy";
+import { numberToNote } from "../../../utils/utils";
 
 const bufferSize = 4096;
 
 export const VoiceThing = () => {
-  const [pitch, setPitch] = useState<number>(0);
+  const [frequency, setFrequency] = useState<number>(0);
   useEffect(() => {
     const audioContext: AudioContext = new AudioContext();
     const analyzer = audioContext.createAnalyser();
@@ -24,7 +25,7 @@ export const VoiceThing = () => {
           audioContext.sampleRate
         );
 
-        setPitch(pitch[0]);
+        setFrequency(pitch[0]);
       };
       scriptProcessor.addEventListener("audioprocess", eventListener);
       return () => {
@@ -32,5 +33,12 @@ export const VoiceThing = () => {
       };
     });
   }, []);
-  return <div>ducks {(12 * Math.log(pitch / 440)) / Math.log(2) + 69}</div>;
+  const note = Math.round(12 * (Math.log(frequency / 440) / Math.log(2))) + 69;
+  return (
+    <div>
+      {numberToNote(note ?? 0)}
+      <br />
+      {note}
+    </div>
+  );
 };
