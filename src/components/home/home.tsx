@@ -15,6 +15,7 @@ import { VoiceWrapper } from "./voice-wrapper/voice-wrapper";
 export const Home: FunctionComponent = () => {
   const { options, setOptions } = useContext(ctx);
   const [showOptions, setShowOptions] = useState(false);
+  const [micEnabled, setMicEnabled] = useState(false);
   useEffect(() => {
     const keyup = (event: KeyboardEvent) => {
       if (event.key === "r" && !event.repeat) {
@@ -56,13 +57,22 @@ export const Home: FunctionComponent = () => {
         >
           Change practice mode (r)
         </button>
+        <button
+          onClick={() => {
+            setMicEnabled(!micEnabled);
+          }}
+        >
+          Toggle mic (broken for mobile)
+        </button>
         <div className={style.divider} />
 
         {showOptions && <Options />}
         <div className={style.practiceContainer}>
-          <div className={style.voiceContainer}>
-            <VoiceWrapper />
-          </div>
+          {micEnabled && (
+            <div className={style.voiceContainer}>
+              <VoiceWrapper />
+            </div>
+          )}
           <PracticeContainer mode={options.mode} />
         </div>
       </div>
