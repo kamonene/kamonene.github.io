@@ -10,7 +10,7 @@ import { PracticeContainer } from "./practice-container/practice-container";
 import { Options } from "../functional/options/options";
 import { Mode } from "../../utils/constants";
 import { ctx } from "../../App";
-import { VoiceThing } from "./voice-thing/voice-thing";
+import { VoiceWrapper } from "./voice-wrapper/voice-wrapper";
 
 export const Home: FunctionComponent = () => {
   const { options, setOptions } = useContext(ctx);
@@ -59,8 +59,10 @@ export const Home: FunctionComponent = () => {
         <div className={style.divider} />
 
         {showOptions && <Options />}
-        <PracticeContainer mode={options.mode} />
-        {false && <VoiceThing />}
+        <div className={style.practiceContainer}>
+          <div className={style.voiceContainer}>{true && <VoiceWrapper />}</div>
+          <PracticeContainer mode={options.mode} />
+        </div>
       </div>
     </div>
   );

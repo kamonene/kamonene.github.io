@@ -26,10 +26,9 @@ interface Ref {
 export const PracticeContainer: FunctionComponent<Props> = ({
   mode,
 }: Props) => {
-  const { options } = useContext(ctx);
-  const [currentIntervalMetaData, setCurrentIntervalMetaData] = useState(
-    findNextInterval(options)
-  );
+  const { options, currentIntervalMetaData, setCurrentIntervalMetaData } =
+    useContext(ctx);
+
   const [reveal, setReveal] = useState(false);
   const ref = useRef<Ref>({ synth1: undefined, synth2: undefined });
   useEffect(() => {
@@ -100,7 +99,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
     return () => {
       document.removeEventListener("keyup", keyup);
     };
-  }, [mode, options, reveal]);
+  }, [mode, options, reveal, setCurrentIntervalMetaData]);
 
   const note = currentIntervalMetaData.baseNote;
 
@@ -138,9 +137,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
           </p>
         )}
         <button onClick={onClickBase}>Play first (q)</button>
-        <div>{currentIntervalMetaData.baseNote}</div>
         <button onClick={onClickBaseConfirm}>Play second (w)</button>
-        <div>{pitchIncrease(note, currentIntervalMetaData.interval)}</div>
         <button onClick={onClickNext}>
           {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
         </button>
