@@ -60,7 +60,9 @@ export const Home: FunctionComponent = () => {
 
         {showOptions && <Options />}
         <div className={style.practiceContainer}>
-          <div className={style.voiceContainer}>{true && <VoiceWrapper />}</div>
+          <div className={style.voiceContainer}>
+            <VoiceWrapper />
+          </div>
           <PracticeContainer mode={options.mode} />
         </div>
       </div>
