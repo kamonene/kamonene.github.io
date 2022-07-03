@@ -138,7 +138,9 @@ export const PracticeContainer: FunctionComponent<Props> = ({
           </p>
         )}
         <button onClick={onClickBase}>Play first (q)</button>
+        <div>{currentIntervalMetaData.baseNote}</div>
         <button onClick={onClickBaseConfirm}>Play second (w)</button>
+        <div>{pitchIncrease(note, currentIntervalMetaData.interval)}</div>
         <button onClick={onClickNext}>
           {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
         </button>
