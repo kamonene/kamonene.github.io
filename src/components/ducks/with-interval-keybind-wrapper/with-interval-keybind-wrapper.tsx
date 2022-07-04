@@ -1,16 +1,10 @@
-import {
-  IntervalMetaData,
-  noteToNumber,
-  numberToNote,
-} from "../../../../utils/utils";
-import React, { useEffect } from "react";
+import { noteToNumber, numberToNote } from "../../../utils/utils";
+import React, { useContext, useEffect } from "react";
 import * as Tone from "tone";
+import { ctx } from "../../../App";
 
-interface Props {
-  currentInterval: IntervalMetaData;
-}
-
-export const KeybindWrapper = ({ currentInterval }: Props) => {
+export const WithIntervalKeybindWrapper = () => {
+  const { currentIntervalMetaData } = useContext(ctx);
   useEffect(() => {
     const synth0 = new Tone.Synth().toDestination();
     const synth1 = new Tone.Synth().toDestination();
@@ -28,101 +22,102 @@ export const KeybindWrapper = ({ currentInterval }: Props) => {
     const keydown = (event: KeyboardEvent) => {
       if (event.code === "Digit1" && !event.repeat) {
         synth0.triggerAttack(
-          numberToNote(noteToNumber(currentInterval.baseNote))
+          numberToNote(noteToNumber(currentIntervalMetaData.baseNote))
         );
       }
       if (event.code === "Digit2" && !event.repeat && !event.shiftKey) {
         synth1.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) + currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit2" && !event.repeat && event.shiftKey) {
         synth2.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              2 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              2 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit3" && !event.repeat && !event.shiftKey) {
         synth3.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              3 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              3 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit3" && !event.repeat && event.shiftKey) {
         synth4.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              4 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              4 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit4" && !event.repeat && !event.shiftKey) {
         synth5.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              5 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              5 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit4" && !event.repeat && event.shiftKey) {
         synth6.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              6 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              6 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit5" && !event.repeat) {
         synth7.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              7 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              7 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit6" && !event.repeat && !event.shiftKey) {
         synth8.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              8 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              8 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit6" && !event.repeat && event.shiftKey) {
         synth9.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              9 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              9 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit7" && !event.repeat && !event.shiftKey) {
         synth10.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              10 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              10 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit7" && !event.repeat && event.shiftKey) {
         synth11.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              11 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              11 * currentIntervalMetaData.multiplier
           )
         );
       }
       if (event.code === "Digit8" && !event.repeat) {
         synth12.triggerAttack(
           numberToNote(
-            noteToNumber(currentInterval.baseNote) +
-              12 * currentInterval.multiplier
+            noteToNumber(currentIntervalMetaData.baseNote) +
+              12 * currentIntervalMetaData.multiplier
           )
         );
       }
@@ -194,7 +189,7 @@ export const KeybindWrapper = ({ currentInterval }: Props) => {
       synth11.dispose();
       synth12.dispose();
     };
-  }, [currentInterval]);
+  }, [currentIntervalMetaData]);
 
   return <></>;
 };

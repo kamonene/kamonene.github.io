@@ -66,10 +66,7 @@ export const intervals = [
 export enum Mode {
   "RECOGNIZE" = "RECOGNIZE",
   "PRODUCE" = "PRODUCE",
-}
-
-export interface Ref {
-  synth?: Synth;
+  "VOICE_SANDBOX" = "VOICE_SANDBOX",
 }
 
 export interface Options {

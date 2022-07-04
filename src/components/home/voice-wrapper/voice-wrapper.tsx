@@ -53,7 +53,7 @@ export const VoiceWrapper = () => {
           noteNumber > 0 &&
           currentNote.noteName &&
           currentNote.noteNumber &&
-          volume > 0.007
+          volume > 0.02
         ) {
           setNote(currentNote);
         }

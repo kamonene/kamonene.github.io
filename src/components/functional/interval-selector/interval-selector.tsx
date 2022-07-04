@@ -1,23 +1,14 @@
-import React, { FunctionComponent, useContext, useEffect, useRef } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { ctx } from "../../../App";
 
 import style from "./interval-selector.module.less";
-import { Interval, intervals, Ref } from "../../../utils/constants";
-import {
-  IntervalMetaData,
-  noteToNumber,
-  numberToNote,
-} from "../../../utils/utils";
+import { Interval, intervals } from "../../../utils/constants";
+import { noteToNumber, numberToNote } from "../../../utils/utils";
 import * as Tone from "tone";
+import { useSynth } from "../../../utils/use-synth";
 
-interface Props {
-  currentInterval: IntervalMetaData;
-}
-
-export const IntervalSelector: FunctionComponent<Props> = ({
-  currentInterval,
-}: Props) => {
-  const { options, setOptions } = useContext(ctx);
+export const IntervalSelector: FunctionComponent = () => {
+  const { options, setOptions, currentIntervalMetaData } = useContext(ctx);
   const activeIntervals = options.activeIntervals;
   useEffect(() => {
     const baseNoteSynth = new Tone.Synth().toDestination();
@@ -33,16 +24,9 @@ export const IntervalSelector: FunctionComponent<Props> = ({
       baseNoteSynth.triggerRelease();
       baseNoteSynth.dispose();
     };
-  }, [currentInterval]);
+  }, [currentIntervalMetaData]);
 
-  const ref = useRef<Ref>({ synth: undefined });
-  useEffect(() => {
-    const current = ref.current;
-    current.synth = new Tone.Synth().toDestination();
-    return () => {
-      current.synth?.dispose();
-    };
-  }, []);
+  const synth = useSynth();
 
   const makeOnClick = (interval: Interval) => {
     return () => {
@@ -82,10 +66,10 @@ export const IntervalSelector: FunctionComponent<Props> = ({
           </button>
           <button
             onClick={() => {
-              ref.current.synth?.triggerAttackRelease(
+              synth?.triggerAttackRelease(
                 numberToNote(
-                  noteToNumber(currentInterval.baseNote) +
-                    index * currentInterval.multiplier
+                  noteToNumber(currentIntervalMetaData.baseNote) +
+                    index * currentIntervalMetaData.multiplier
                 ),
                 "3n"
               );

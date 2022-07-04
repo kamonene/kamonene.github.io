@@ -17,18 +17,18 @@ export const VoiceVisualizer = ({ note }: Props) => {
     setShouldShow(true);
     const timeout = setTimeout(() => {
       setShouldShow(false);
-    }, 1500);
+    }, 1000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [note.noteNumber]);
+  }, [note]);
 
   const reversedIntervals = Object.assign([], intervals)
     .reverse()
     .slice(0, intervals.length - 1);
 
   return (
-    <div>
+    <div className={style.container}>
       {reversedIntervals.map((interval, index) => {
         const offset = intervals.findIndex(
           (interval1) => interval1 === interval

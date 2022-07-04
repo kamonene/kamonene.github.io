@@ -2,25 +2,17 @@ import React, {
   FunctionComponent,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
-import * as Tone from "tone";
 import { findNextInterval, pitchIncrease } from "../../../utils/utils";
-import { IntervalSelector } from "../../functional/interval-selector/interval-selector";
 import { ctx } from "../../../App";
 import style from "./practice-container.module.less";
 import { Mode } from "../../../utils/constants";
-import { KeybindWrapper } from "./keybind-wrapper/keybind-wrapper";
-import { Synth } from "tone";
+import { WithCurrentIntervalButtonBinds } from "../../ducks/with-current-interval-button-binds/with-current-interval-button-binds";
+import { useSynth } from "../../../utils/use-synth";
 
 interface Props {
   mode: Mode;
-}
-
-interface Ref {
-  synth1?: Synth;
-  synth2?: Synth;
 }
 
 export const PracticeContainer: FunctionComponent<Props> = ({
@@ -30,55 +22,8 @@ export const PracticeContainer: FunctionComponent<Props> = ({
     useContext(ctx);
 
   const [reveal, setReveal] = useState(false);
-  const ref = useRef<Ref>({ synth1: undefined, synth2: undefined });
-  useEffect(() => {
-    const current = ref.current;
-    current.synth1 = new Tone.Synth().toDestination();
-    current.synth2 = new Tone.Synth().toDestination();
-    return () => {
-      current.synth1?.dispose();
-      current.synth2?.dispose();
-    };
-  }, []);
-  useEffect(() => {
-    const baseNoteSynth = new Tone.Synth().toDestination();
-    const augmentedSynth = new Tone.Synth().toDestination();
-
-    const keydown = (event: KeyboardEvent) => {
-      if (event.key === "q" && !event.repeat) {
-        baseNoteSynth.triggerAttack(currentIntervalMetaData.baseNote);
-      }
-      if (event.key === "w" && !event.repeat) {
-        augmentedSynth.triggerAttack(
-          pitchIncrease(
-            currentIntervalMetaData.baseNote,
-            currentIntervalMetaData.interval
-          )
-        );
-      }
-    };
-
-    const keyup = (event: KeyboardEvent) => {
-      if (event.key === "q" && !event.repeat) {
-        baseNoteSynth.triggerRelease();
-      }
-      if (event.key === "w" && !event.repeat) {
-        augmentedSynth.triggerRelease();
-      }
-    };
-
-    document.addEventListener("keydown", keydown);
-    document.addEventListener("keyup", keyup);
-    return () => {
-      document.removeEventListener("keyup", keyup);
-      document.removeEventListener("keydown", keydown);
-
-      augmentedSynth.triggerRelease();
-      baseNoteSynth.triggerRelease();
-      augmentedSynth.dispose();
-      baseNoteSynth.dispose();
-    };
-  }, [currentIntervalMetaData]);
+  const synth1 = useSynth();
+  const synth2 = useSynth();
 
   useEffect(() => {
     if (!reveal) {
@@ -95,7 +40,6 @@ export const PracticeContainer: FunctionComponent<Props> = ({
       }
     };
     document.addEventListener("keyup", keyup);
-
     return () => {
       document.removeEventListener("keyup", keyup);
     };
@@ -104,11 +48,11 @@ export const PracticeContainer: FunctionComponent<Props> = ({
   const note = currentIntervalMetaData.baseNote;
 
   const onClickBase = () => {
-    ref.current.synth1?.triggerAttackRelease(note, "3n");
+    synth1?.triggerAttackRelease(note, "3n");
   };
   const onClickBaseConfirm = () => {
     const pitchAsString = pitchIncrease(note, currentIntervalMetaData.interval);
-    ref.current.synth2?.triggerAttackRelease(pitchAsString, "3n");
+    synth2?.triggerAttackRelease(pitchAsString, "3n");
   };
   const onClickNext = () => {
     if (mode === Mode.RECOGNIZE && !reveal) {
@@ -121,7 +65,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
 
   return (
     <div className={style.container}>
-      <KeybindWrapper currentInterval={currentIntervalMetaData} />
+      <WithCurrentIntervalButtonBinds />
       <div className={style.leftArea}>
         {mode === Mode.PRODUCE && (
           <p>
@@ -136,13 +80,23 @@ export const PracticeContainer: FunctionComponent<Props> = ({
             {currentIntervalMetaData.intervalName}
           </p>
         )}
-        <button onClick={onClickBase}>Play first (q)</button>
-        <button onClick={onClickBaseConfirm}>Play second (w)</button>
-        <button onClick={onClickNext}>
-          {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
-        </button>
+
+        {mode !== Mode.VOICE_SANDBOX && (
+          <>
+            <button onClick={onClickBase}>Play first (q)</button>
+            <button onClick={onClickBaseConfirm}>Play second (w)</button>
+            <button onClick={onClickNext}>
+              {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
+            </button>
+          </>
+        )}
+        {mode === Mode.VOICE_SANDBOX && (
+          <>
+            <button onClick={onClickBase}>Play base (q)</button>
+            <button onClick={onClickNext}>Next (e)</button>
+          </>
+        )}
       </div>
-      <IntervalSelector currentInterval={currentIntervalMetaData} />
     </div>
   );
 };
