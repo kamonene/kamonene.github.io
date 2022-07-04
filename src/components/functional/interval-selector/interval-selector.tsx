@@ -6,6 +6,7 @@ import { Interval, intervals } from "../../../utils/constants";
 import { noteToNumber, numberToNote } from "../../../utils/utils";
 import * as Tone from "tone";
 import { useSynth } from "../../../utils/use-synth";
+import { WithIntervalKeybindWrapper } from "../../ducks/with-interval-keybind-wrapper/with-interval-keybind-wrapper";
 
 export const IntervalSelector: FunctionComponent = () => {
   const { options, setOptions, currentIntervalMetaData } = useContext(ctx);
@@ -54,6 +55,7 @@ export const IntervalSelector: FunctionComponent = () => {
 
   return (
     <div className={style.container}>
+      <WithIntervalKeybindWrapper />
       {intervals.map((interval, index) => (
         <div key={interval} className={style.buttonRow}>
           <button

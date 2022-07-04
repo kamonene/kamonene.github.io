@@ -30,7 +30,6 @@ export const Home: FunctionComponent = () => {
 
   return (
     <div className={style.home}>
-      <WithIntervalKeybindWrapper />
       <div className={style.container}>
         <button
           className={style.button}
