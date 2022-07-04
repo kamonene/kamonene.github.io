@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { ctx } from "../../../App";
 import { numberToNote } from "../../../utils/utils";
 import style from "./options.module.less";

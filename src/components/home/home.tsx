@@ -9,7 +9,6 @@ import { Options } from "../functional/options/options";
 import { Mode } from "../../utils/constants";
 import { ctx } from "../../App";
 import { Router } from "../router/router";
-import { WithIntervalKeybindWrapper } from "../ducks/with-interval-keybind-wrapper/with-interval-keybind-wrapper";
 
 export const Home: FunctionComponent = () => {
   const { options, setOptions } = useContext(ctx);
