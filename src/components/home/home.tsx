@@ -1,32 +1,10 @@
-import React, {
-  FunctionComponent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { FunctionComponent, useState } from "react";
 import style from "./home.module.less";
 import { Options } from "../functional/options/options";
-import { Mode } from "../../utils/constants";
-import { ctx } from "../../App";
 import { Router } from "../router/router";
 
 export const Home: FunctionComponent = () => {
-  const { options, setOptions } = useContext(ctx);
   const [showOptions, setShowOptions] = useState(false);
-  useEffect(() => {
-    const keyup = (event: KeyboardEvent) => {
-      if (event.key === "r" && !event.repeat) {
-        const nextMode =
-          options.mode === Mode.PRODUCE ? Mode.RECOGNIZE : Mode.PRODUCE;
-        setOptions({ ...options, mode: nextMode });
-      }
-    };
-    document.addEventListener("keyup", keyup);
-    return () => {
-      document.removeEventListener("keyup", keyup);
-    };
-  }, [options, setOptions]);
-
   return (
     <div className={style.home}>
       <div className={style.container}>
