@@ -31,7 +31,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
                   return "?";
                 }
               })()}
-              {currentIntervalMetaData.multiplier === 1 ? "↑" : "↓"}
+              {currentIntervalMetaData.multiplier === 1 ? " ↑" : " ↓"}
             </PlayRelativeInterval>
 
             <NextNoteButton mode={mode} setReveal={setReveal} reveal={reveal}>
