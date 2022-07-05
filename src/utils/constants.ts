@@ -1,5 +1,3 @@
-import { Synth } from "tone";
-
 export enum Note {
   "C" = "C",
   "C#" = "C#",
