@@ -10,7 +10,7 @@ const defaultIntervalMetaDataUpdate: React.Dispatch<
   React.SetStateAction<IntervalMetaData>
 > = () => defaultOptions;
 
-const a: IntervalMetaData = {
+const defaultIntervalMetaData: IntervalMetaData = {
   interval: 5,
   intervalName: Interval.Tritone,
   baseNote: "c4",
@@ -21,7 +21,7 @@ export const ctx = React.createContext({
   options: defaultOptions,
   setOptions: defaultUpdate,
   setCurrentIntervalMetaData: defaultIntervalMetaDataUpdate,
-  currentIntervalMetaData: a,
+  currentIntervalMetaData: defaultIntervalMetaData,
 });
 
 const cookieName = "options";
