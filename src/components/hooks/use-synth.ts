@@ -15,5 +15,5 @@ export const useSynth = () => {
       current.synth?.dispose();
     };
   }, []);
-  return ref.current.synth;
+  return ref.current;
 };

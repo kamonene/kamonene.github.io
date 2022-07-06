@@ -22,9 +22,6 @@ export const NextNoteButton: FunctionComponent<Props> = ({
 }: Props) => {
   const { options, setCurrentIntervalMetaData } = useContext(ctx);
   useEffect(() => {
-    if (!reveal) {
-      setCurrentIntervalMetaData(findNextInterval(options));
-    }
     const keyup = (event: KeyboardEvent) => {
       if (event.key === "e" && !event.repeat) {
         if (mode === Mode.RECOGNIZE && !reveal) {

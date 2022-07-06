@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { useSynth } from "../../../utils/use-synth";
+import { useSynth } from "../../hooks/use-synth";
 import { ctx } from "../../../App";
 import * as Tone from "tone";
 
@@ -12,7 +12,7 @@ type Props = HTMLAttributes<HTMLButtonElement>;
 
 export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
   const { currentIntervalMetaData } = useContext(ctx);
-  const synth = useSynth();
+  const current = useSynth();
 
   useEffect(() => {
     const baseNoteSynth = new Tone.Synth().toDestination();
@@ -37,7 +37,7 @@ export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
   }, [currentIntervalMetaData]);
 
   const onClick = () => {
-    synth?.triggerAttackRelease(currentIntervalMetaData.baseNote, "3n");
+    current.synth?.triggerAttackRelease(currentIntervalMetaData.baseNote, "3n");
   };
   return (
     <button onClick={onClick}>

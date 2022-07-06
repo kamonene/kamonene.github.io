@@ -14,15 +14,14 @@ export const PracticeContainer: FunctionComponent<Props> = ({
   mode,
 }: Props) => {
   const { currentIntervalMetaData } = useContext(ctx);
-
   const [reveal, setReveal] = useState(false);
-
+  console.log(currentIntervalMetaData);
   return (
     <div className={style.container}>
       <div className={style.leftArea}>
         {mode !== Mode.VOICE_SANDBOX && (
           <>
-            <PlayBaseNote>{currentIntervalMetaData.baseNote}</PlayBaseNote>
+            <PlayBaseNote>{currentIntervalMetaData.baseNote} (q)</PlayBaseNote>
             <PlayRelativeInterval>
               {(() => {
                 if (mode === Mode.PRODUCE || reveal) {
@@ -32,6 +31,7 @@ export const PracticeContainer: FunctionComponent<Props> = ({
                 }
               })()}
               {currentIntervalMetaData.multiplier === 1 ? " ↑" : " ↓"}
+              (w)
             </PlayRelativeInterval>
 
             <NextNoteButton mode={mode} setReveal={setReveal} reveal={reveal}>

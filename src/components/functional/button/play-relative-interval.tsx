@@ -7,7 +7,7 @@ import React, {
 import { ctx } from "../../../App";
 import * as Tone from "tone";
 import { pitchIncrease } from "../../../utils/utils";
-import { useSynth } from "../../../utils/use-synth";
+import { useSynth } from "../../hooks/use-synth";
 
 type Props = HTMLAttributes<HTMLButtonElement>;
 
@@ -15,7 +15,7 @@ export const PlayRelativeInterval: FunctionComponent<Props> = ({
   children,
 }: Props) => {
   const { currentIntervalMetaData } = useContext(ctx);
-  const synth = useSynth();
+  const current = useSynth();
 
   useEffect(() => {
     const keyBindSynth = new Tone.Synth().toDestination();
@@ -53,7 +53,7 @@ export const PlayRelativeInterval: FunctionComponent<Props> = ({
       currentIntervalMetaData.baseNote,
       currentIntervalMetaData.interval
     );
-    synth?.triggerAttackRelease(pitchAsString, "3n");
+    current.synth?.triggerAttackRelease(pitchAsString, "3n");
   };
   return (
     <button onClick={onClick}>

@@ -5,7 +5,6 @@ export enum Note {
   "D#" = "D#",
   "E" = "E",
   "F" = "F",
-
   "F#" = "F#",
   "G" = "G",
   "G#" = "G#",
@@ -67,6 +66,12 @@ export enum Mode {
   "VOICE_SANDBOX" = "VOICE_SANDBOX",
 }
 
+export enum Tab {
+  "PRACTICE" = 0,
+  "PLAYGROUND" = 1,
+  "QUIZ" = 2,
+}
+
 export interface Options {
   activeIntervals: Array<Interval>;
   baseNoteLower: number;
@@ -74,6 +79,7 @@ export interface Options {
   allowAscending: boolean;
   allowDescending: boolean;
   mode: Mode;
+  tab: Tab;
 }
 
 export const defaultOptions: Options = {
@@ -83,4 +89,5 @@ export const defaultOptions: Options = {
   allowAscending: true,
   allowDescending: false,
   mode: Mode.PRODUCE,
+  tab: Tab.PRACTICE,
 };

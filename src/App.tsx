@@ -32,10 +32,16 @@ function App() {
   const [firstLoaded, setFirstLoaded] = useState(true);
   const [currentIntervalMetaData, setCurrentIntervalMetaData] =
     useState<IntervalMetaData>(findNextInterval(options));
+
   useEffect(() => {
     if (firstLoaded) {
       setFirstLoaded(false);
-      setOptions({ ...defaultOptions, ...(cookies.options ?? defaultOptions) });
+      const newOptions = {
+        ...defaultOptions,
+        ...(cookies.options ?? defaultOptions),
+      };
+      setCurrentIntervalMetaData(findNextInterval(newOptions));
+      setOptions(newOptions);
     }
   }, [cookies.options, firstLoaded]);
 
@@ -53,7 +59,7 @@ function App() {
           setOptions,
         }}
       >
-        <Home />
+        {!firstLoaded && <Home />}
       </ctx.Provider>
     </div>
   );

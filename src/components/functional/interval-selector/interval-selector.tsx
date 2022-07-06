@@ -5,10 +5,11 @@ import style from "./interval-selector.module.less";
 import { Interval, intervals } from "../../../utils/constants";
 import { noteToNumber, numberToNote } from "../../../utils/utils";
 import * as Tone from "tone";
-import { useSynth } from "../../../utils/use-synth";
-import { WithIntervalKeybindWrapper } from "../../ducks/with-interval-keybind-wrapper/with-interval-keybind-wrapper";
+import { useSynth } from "../../hooks/use-synth";
+import { useIntervalKeyBindings } from "../../hooks/use-interval-key-bindings";
 
 export const IntervalSelector: FunctionComponent = () => {
+  useIntervalKeyBindings();
   const { options, setOptions, currentIntervalMetaData } = useContext(ctx);
   const activeIntervals = options.activeIntervals;
   useEffect(() => {
@@ -27,7 +28,7 @@ export const IntervalSelector: FunctionComponent = () => {
     };
   }, [currentIntervalMetaData]);
 
-  const synth = useSynth();
+  const current = useSynth();
 
   const makeOnClick = (interval: Interval) => {
     return () => {
@@ -55,7 +56,6 @@ export const IntervalSelector: FunctionComponent = () => {
 
   return (
     <div className={style.container}>
-      <WithIntervalKeybindWrapper />
       {intervals.map((interval, index) => (
         <div key={interval} className={style.buttonRow}>
           <button
@@ -68,7 +68,7 @@ export const IntervalSelector: FunctionComponent = () => {
           </button>
           <button
             onClick={() => {
-              synth?.triggerAttackRelease(
+              current.synth?.triggerAttackRelease(
                 numberToNote(
                   noteToNumber(currentIntervalMetaData.baseNote) +
                     index * currentIntervalMetaData.multiplier

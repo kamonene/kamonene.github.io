@@ -1,18 +1,24 @@
-import React, { useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { ctx } from "../../../App";
 import { numberToNote } from "../../../utils/utils";
 import style from "./options.module.less";
 import { defaultOptions } from "../../../utils/constants";
-import { useSynth } from "../../../utils/use-synth";
+import { useSynth } from "../../hooks/use-synth";
 
-export const Options = () => {
-  const synth = useSynth();
+export const Options: FunctionComponent = () => {
+  const current = useSynth();
   const { options, setOptions } = useContext(ctx);
   const playUpper = () => {
-    synth?.triggerAttackRelease(numberToNote(options.baseNoteUpper), "8n");
+    current.synth?.triggerAttackRelease(
+      numberToNote(options.baseNoteUpper),
+      "8n"
+    );
   };
   const playLower = () => {
-    synth?.triggerAttackRelease(numberToNote(options.baseNoteLower), "8n");
+    current.synth?.triggerAttackRelease(
+      numberToNote(options.baseNoteLower),
+      "8n"
+    );
   };
   return (
     <div className={style.container}>
@@ -36,7 +42,10 @@ export const Options = () => {
               onClick={() => {
                 const newPitch = options.baseNoteUpper + 1;
                 setOptions({ ...options, baseNoteUpper: newPitch });
-                synth?.triggerAttackRelease(numberToNote(newPitch), "8n");
+                current.synth?.triggerAttackRelease(
+                  numberToNote(newPitch),
+                  "8n"
+                );
               }}
             >
               ↑
@@ -48,7 +57,10 @@ export const Options = () => {
                 }
                 const newPitch = options.baseNoteUpper - 1;
                 setOptions({ ...options, baseNoteUpper: newPitch });
-                synth?.triggerAttackRelease(numberToNote(newPitch), "8n");
+                current.synth?.triggerAttackRelease(
+                  numberToNote(newPitch),
+                  "8n"
+                );
               }}
             >
               ↓
@@ -69,7 +81,10 @@ export const Options = () => {
                 }
                 const newPitch = options.baseNoteLower + 1;
                 setOptions({ ...options, baseNoteLower: newPitch });
-                synth?.triggerAttackRelease(numberToNote(newPitch), "8n");
+                current.synth?.triggerAttackRelease(
+                  numberToNote(newPitch),
+                  "8n"
+                );
               }}
             >
               ↑
@@ -79,7 +94,10 @@ export const Options = () => {
               onClick={() => {
                 const newPitch = options.baseNoteLower - 1;
                 setOptions({ ...options, baseNoteLower: newPitch });
-                synth?.triggerAttackRelease(numberToNote(newPitch), "8n");
+                current.synth?.triggerAttackRelease(
+                  numberToNote(newPitch),
+                  "8n"
+                );
               }}
             >
               ↓

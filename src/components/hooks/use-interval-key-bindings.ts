@@ -1,9 +1,9 @@
-import { noteToNumber, numberToNote } from "../../../utils/utils";
-import React, { useContext, useEffect } from "react";
+import { noteToNumber, numberToNote } from "../../utils/utils";
+import { useContext, useEffect } from "react";
 import * as Tone from "tone";
-import { ctx } from "../../../App";
+import { ctx } from "../../App";
 
-export const WithIntervalKeybindWrapper = () => {
+export const useIntervalKeyBindings = () => {
   const { currentIntervalMetaData } = useContext(ctx);
   useEffect(() => {
     const synth0 = new Tone.Synth().toDestination();
@@ -190,6 +190,4 @@ export const WithIntervalKeybindWrapper = () => {
       synth12.dispose();
     };
   }, [currentIntervalMetaData]);
-
-  return <></>;
 };
