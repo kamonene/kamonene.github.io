@@ -2,10 +2,14 @@ import { noteToNumber, numberToNote } from "../../utils/utils";
 import { useContext, useEffect } from "react";
 import * as Tone from "tone";
 import { ctx } from "../../App";
+import { isMobile } from "react-device-detect";
 
 export const useIntervalKeyBindings = () => {
   const { currentIntervalMetaData } = useContext(ctx);
   useEffect(() => {
+    if (isMobile) {
+      return;
+    }
     const synth0 = new Tone.Synth().toDestination();
     const synth1 = new Tone.Synth().toDestination();
     const synth2 = new Tone.Synth().toDestination();
@@ -158,6 +162,9 @@ export const useIntervalKeyBindings = () => {
     document.addEventListener("keydown", keydown);
     document.addEventListener("keyup", keyup);
     return () => {
+      if (isMobile) {
+        return;
+      }
       document.removeEventListener("keyup", keyup);
       document.removeEventListener("keydown", keydown);
 

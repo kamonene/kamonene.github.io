@@ -15,7 +15,6 @@ export const PracticeContainer: FunctionComponent<Props> = ({
 }: Props) => {
   const { currentIntervalMetaData } = useContext(ctx);
   const [reveal, setReveal] = useState(false);
-  console.log(currentIntervalMetaData);
   return (
     <div className={style.container}>
       <div className={style.leftArea}>
