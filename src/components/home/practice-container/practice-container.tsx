@@ -5,6 +5,7 @@ import { Mode } from "../../../utils/constants";
 import { PlayBaseNote } from "../../functional/button/play-base-note";
 import { PlayRelativeInterval } from "../../functional/button/play-relative-interval";
 import { NextNoteButton } from "../../functional/button/next-note-button";
+import { isMobile } from "react-device-detect";
 
 interface Props {
   mode: Mode;
@@ -30,19 +31,22 @@ export const PracticeContainer: FunctionComponent<Props> = ({
                 }
               })()}
               {currentIntervalMetaData.multiplier === 1 ? " ↑" : " ↓"}
-              (w)
+              {isMobile ? "" : "(w)"}
             </PlayRelativeInterval>
 
             <NextNoteButton mode={mode} setReveal={setReveal} reveal={reveal}>
-              {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"} (e)
+              {mode === Mode.RECOGNIZE && !reveal ? "Reveal" : "Next"}
+              {isMobile ? "" : "(e)"}
             </NextNoteButton>
           </>
         )}
         {mode === Mode.VOICE_SANDBOX && (
           <>
-            <PlayBaseNote>{currentIntervalMetaData.baseNote}</PlayBaseNote>
+            <PlayBaseNote>
+              {currentIntervalMetaData.baseNote} {isMobile ? "" : "(q)"}
+            </PlayBaseNote>
             <NextNoteButton mode={mode} setReveal={setReveal} reveal={reveal}>
-              Next (e)
+              Next {isMobile ? "" : "(e)"}
             </NextNoteButton>
           </>
         )}
