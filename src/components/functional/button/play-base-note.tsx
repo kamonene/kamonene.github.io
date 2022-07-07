@@ -7,6 +7,7 @@ import React, {
 import { useSynth } from "../../hooks/use-synth";
 import { ctx } from "../../../App";
 import * as Tone from "tone";
+import { isMobile } from "react-device-detect";
 
 type Props = HTMLAttributes<HTMLButtonElement>;
 
@@ -15,6 +16,9 @@ export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
   const current = useSynth();
 
   useEffect(() => {
+    if (isMobile) {
+      return;
+    }
     const baseNoteSynth = new Tone.Synth().toDestination();
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "q" && !event.repeat) {
@@ -29,6 +33,9 @@ export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
     document.addEventListener("keydown", keydown);
     document.addEventListener("keyup", keyup);
     return () => {
+      if (isMobile) {
+        return;
+      }
       document.removeEventListener("keyup", keyup);
       document.removeEventListener("keydown", keydown);
       baseNoteSynth.triggerRelease();

@@ -8,6 +8,7 @@ import { ctx } from "../../../App";
 import * as Tone from "tone";
 import { pitchIncrease } from "../../../utils/utils";
 import { useSynth } from "../../hooks/use-synth";
+import { isMobile } from "react-device-detect";
 
 type Props = HTMLAttributes<HTMLButtonElement>;
 
@@ -18,6 +19,9 @@ export const PlayRelativeInterval: FunctionComponent<Props> = ({
   const current = useSynth();
 
   useEffect(() => {
+    if (isMobile) {
+      return;
+    }
     const keyBindSynth = new Tone.Synth().toDestination();
 
     const keydown = (event: KeyboardEvent) => {
@@ -40,6 +44,9 @@ export const PlayRelativeInterval: FunctionComponent<Props> = ({
     document.addEventListener("keydown", keydown);
     document.addEventListener("keyup", keyup);
     return () => {
+      if (isMobile) {
+        return;
+      }
       document.removeEventListener("keyup", keyup);
       document.removeEventListener("keydown", keydown);
 

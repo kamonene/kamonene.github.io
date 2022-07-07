@@ -1,11 +1,15 @@
 import { useContext, useEffect } from "react";
 import { ctx } from "../../App";
 import { Tab } from "../../utils/constants";
+import { isMobile } from "react-device-detect";
 
 export const useTabKeyBinds = () => {
   const { options, setOptions } = useContext(ctx);
 
   useEffect(() => {
+    if (isMobile) {
+      return;
+    }
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "a" && !event.repeat) {
         setOptions({ ...options, tab: Tab.PRACTICE });
@@ -19,6 +23,9 @@ export const useTabKeyBinds = () => {
     };
     document.addEventListener("keydown", keydown);
     return () => {
+      if (isMobile) {
+        return;
+      }
       document.removeEventListener("keydown", keydown);
     };
   }, [options, setOptions]);
