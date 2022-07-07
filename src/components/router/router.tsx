@@ -8,6 +8,7 @@ import { IntervalSelector } from "../functional/interval-selector/interval-selec
 import style from "./router.module.less";
 import { useTabKeyBinds } from "../hooks/use-tab-key-binds";
 import { ctx } from "../../App";
+import { isMobile } from "react-device-detect";
 
 export const Router = () => {
   useTabKeyBinds();
@@ -21,9 +22,9 @@ export const Router = () => {
       }}
     >
       <TabList>
-        <Tab>Practice (a)</Tab>
-        <Tab>Voice playground (s)</Tab>
-        <Tab>Quiz (d)</Tab>
+        <Tab>Practice {isMobile ? "" : "(a)"}</Tab>
+        <Tab>Voice playground {isMobile ? "" : "(s)"}</Tab>
+        <Tab>Quiz {isMobile ? "" : "(d)"}</Tab>
       </TabList>
 
       <TabPanel>

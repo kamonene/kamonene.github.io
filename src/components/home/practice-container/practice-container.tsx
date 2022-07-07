@@ -21,7 +21,9 @@ export const PracticeContainer: FunctionComponent<Props> = ({
       <div className={style.leftArea}>
         {mode !== Mode.VOICE_SANDBOX && (
           <>
-            <PlayBaseNote>{currentIntervalMetaData.baseNote} (q)</PlayBaseNote>
+            <PlayBaseNote>
+              {currentIntervalMetaData.baseNote} {isMobile ? "" : "(q)"}
+            </PlayBaseNote>
             <PlayRelativeInterval>
               {(() => {
                 if (mode === Mode.PRODUCE || reveal) {
