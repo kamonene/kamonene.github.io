@@ -1,4 +1,4 @@
-import { Interval, intervals, notes, Options } from "./constants";
+import { Interval, intervals, notes, Options, Tab } from "./constants";
 
 export const noteToNumber = (note: string): number => {
   const octave: number = Number.parseInt(note[note.length - 1]);
@@ -27,6 +27,7 @@ const randomInRange = (lower: number, upper: number): number => {
   const random = Math.floor(Math.random() * (upper - lower));
   return random + lower;
 };
+
 export const findNextInterval = (options: Options): IntervalMetaData => {
   const multipliers = [];
   if (options.allowAscending) {
@@ -47,18 +48,45 @@ export const findNextInterval = (options: Options): IntervalMetaData => {
 
   const baseNote = numberToNote(
     randomInRange(
-      multiplier === -1
-        ? options.baseNoteLower + currentInterval
-        : options.baseNoteLower,
-      multiplier === 1
-        ? options.baseNoteUpper - currentInterval
-        : options.baseNoteUpper
+      findLower(options, multiplier, currentInterval),
+      findUpper(options, multiplier, currentInterval)
     )
   );
+
   return {
     intervalName,
     interval: currentInterval * multiplier,
     baseNote,
     multiplier,
   };
+};
+const findLower = (
+  options: Options,
+  multiplier: number,
+  currentInterval: number
+): number => {
+  if (options.tab === Tab.PRACTICE) {
+    return multiplier === -1
+      ? options.baseNoteLower + currentInterval
+      : options.baseNoteLower;
+  } else if (options.tab === Tab.QUIZ) {
+    return 20;
+  } else {
+    return multiplier === -1 ? options.baseNoteLower : options.baseNoteLower;
+  }
+};
+const findUpper = (
+  options: Options,
+  multiplier: number,
+  currentInterval: number
+): number => {
+  if (options.tab === Tab.PRACTICE) {
+    return multiplier === 1
+      ? options.baseNoteUpper - currentInterval
+      : options.baseNoteUpper;
+  } else if (options.tab === Tab.QUIZ) {
+    return 55;
+  } else {
+    return multiplier === 1 ? options.baseNoteUpper : options.baseNoteUpper;
+  }
 };

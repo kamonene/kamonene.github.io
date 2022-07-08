@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const VoiceVisualizer = ({ note }: Props) => {
-  const { currentIntervalMetaData } = useContext(ctx);
+  const { options, currentIntervalMetaData } = useContext(ctx);
   const [shouldShow, setShouldShow] = useState(false);
 
   useEffect(() => {
@@ -33,23 +33,45 @@ export const VoiceVisualizer = ({ note }: Props) => {
         const offset = intervals.findIndex(
           (interval1) => interval1 === interval
         );
-        const matches =
-          shouldShow &&
-          note.noteNumber ===
-            noteToNumber(currentIntervalMetaData.baseNote) + offset;
+        const number = noteToNumber(currentIntervalMetaData.baseNote) + offset;
+        const matches = shouldShow && note.noteNumber === number;
+        const isOutOfRange = number > options.baseNoteUpper;
         return (
-          <div key={index} className={matches ? style.active : style.inactive}>
+          <div
+            key={index}
+            className={(() => {
+              if (matches) {
+                return style.active;
+              } else if (isOutOfRange) {
+                return style.outOfRange;
+              } else {
+                return style.inactive;
+              }
+            })()}
+          >
             {interval}
           </div>
         );
       })}
       {intervals.map((interval, index) => {
-        const matches =
-          shouldShow &&
-          note.noteNumber ===
-            noteToNumber(currentIntervalMetaData.baseNote) + index * -1;
+        const number =
+          noteToNumber(currentIntervalMetaData.baseNote) + index * -1;
+        const matches = shouldShow && note.noteNumber === number;
+        const isOutOfRange = number < options.baseNoteLower;
+
         return (
-          <div key={index} className={matches ? style.active : style.inactive}>
+          <div
+            key={index}
+            className={(() => {
+              if (matches) {
+                return style.active;
+              } else if (isOutOfRange) {
+                return style.outOfRange;
+              } else {
+                return style.inactive;
+              }
+            })()}
+          >
             {interval}
           </div>
         );
