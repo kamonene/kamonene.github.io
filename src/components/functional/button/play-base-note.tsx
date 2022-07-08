@@ -3,18 +3,38 @@ import React, {
   HTMLAttributes,
   useContext,
   useEffect,
+  useState,
 } from "react";
 import { useSynth } from "../../hooks/use-synth";
 import { ctx } from "../../../App";
 import * as Tone from "tone";
 import { isMobile } from "react-device-detect";
+import style from "./button.module.less";
+import { Tab } from "../../../utils/constants";
 
 type Props = HTMLAttributes<HTMLButtonElement>;
 
-export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
-  const { currentIntervalMetaData } = useContext(ctx);
-  const current = useSynth();
+export const PlayBaseNote: FunctionComponent<Props> = ({
+  className,
+  ...rest
+}: Props) => {
+  const { options, currentIntervalMetaData, note } = useContext(ctx);
+  const [shouldShow, setShouldShow] = useState(false);
 
+  useEffect(() => {
+    setShouldShow(true);
+    const timeout = setTimeout(() => {
+      setShouldShow(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [note]);
+  const current = useSynth();
+  const isGreen =
+    shouldShow &&
+    currentIntervalMetaData.baseNote === note.noteName &&
+    options.tab === Tab.PRACTICE;
   useEffect(() => {
     if (isMobile) {
       return;
@@ -47,8 +67,10 @@ export const PlayBaseNote: FunctionComponent<Props> = ({ children }: Props) => {
     current.synth?.triggerAttackRelease(currentIntervalMetaData.baseNote, "3n");
   };
   return (
-    <button onClick={onClick}>
-      <>{children}</>
-    </button>
+    <button
+      className={`${className} ${isGreen ? style.green : ""}`}
+      {...rest}
+      onClick={onClick}
+    />
   );
 };

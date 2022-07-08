@@ -3,12 +3,21 @@ import { Home } from "./components/home/home";
 import { defaultOptions, Interval, Options } from "./utils/constants";
 import { useCookies } from "react-cookie";
 import { findNextInterval, IntervalMetaData } from "./utils/utils";
+import { Note } from "./components/home/microphone/with-microphone";
 
 const defaultUpdate: React.Dispatch<React.SetStateAction<Options>> = () =>
   defaultOptions;
 const defaultIntervalMetaDataUpdate: React.Dispatch<
   React.SetStateAction<IntervalMetaData>
 > = () => defaultOptions;
+const defaultSetNote: React.Dispatch<React.SetStateAction<Note>> = () =>
+  defaultNote;
+
+const defaultNote = {
+  noteName: "",
+  noteNumber: 0,
+  volume: 0,
+};
 
 const defaultIntervalMetaData: IntervalMetaData = {
   interval: 5,
@@ -22,12 +31,19 @@ export const ctx = React.createContext({
   setOptions: defaultUpdate,
   setCurrentIntervalMetaData: defaultIntervalMetaDataUpdate,
   currentIntervalMetaData: defaultIntervalMetaData,
+  setNote: defaultSetNote,
+  note: defaultNote,
 });
 
 const cookieName = "options";
 
 function App() {
   const [options, setOptions] = useState<Options>(defaultOptions);
+  const [note, setNote] = useState<Note>({
+    noteName: "",
+    noteNumber: 0,
+    volume: 0,
+  });
   const [cookies, setCookie] = useCookies(["options"]);
   const [firstLoaded, setFirstLoaded] = useState(true);
   const [currentIntervalMetaData, setCurrentIntervalMetaData] =
@@ -57,6 +73,8 @@ function App() {
           setCurrentIntervalMetaData,
           options,
           setOptions,
+          note,
+          setNote,
         }}
       >
         {!firstLoaded && <Home />}

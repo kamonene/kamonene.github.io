@@ -80,6 +80,7 @@ export interface Options {
   allowDescending: boolean;
   mode: Mode;
   tab: Tab;
+  enableMicrophone: boolean;
 }
 
 export const defaultOptions: Options = {
@@ -90,4 +91,5 @@ export const defaultOptions: Options = {
   allowDescending: false,
   mode: Mode.PRODUCE,
   tab: Tab.PRACTICE,
+  enableMicrophone: false,
 };

@@ -3,21 +3,43 @@ import React, {
   HTMLAttributes,
   useContext,
   useEffect,
+  useState,
 } from "react";
 import { ctx } from "../../../App";
 import * as Tone from "tone";
 import { pitchIncrease } from "../../../utils/utils";
 import { useSynth } from "../../hooks/use-synth";
 import { isMobile } from "react-device-detect";
+import style from "./button.module.less";
+import { Tab } from "../../../utils/constants";
 
 type Props = HTMLAttributes<HTMLButtonElement>;
 
 export const PlayRelativeInterval: FunctionComponent<Props> = ({
-  children,
+  className,
+  ...rest
 }: Props) => {
-  const { currentIntervalMetaData } = useContext(ctx);
+  const { options, note, currentIntervalMetaData } = useContext(ctx);
   const current = useSynth();
+  const [shouldShow, setShouldShow] = useState(false);
 
+  useEffect(() => {
+    setShouldShow(true);
+    const timeout = setTimeout(() => {
+      setShouldShow(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [note]);
+  const isGreen =
+    shouldShow &&
+    note.noteName ===
+      pitchIncrease(
+        currentIntervalMetaData.baseNote,
+        currentIntervalMetaData.interval
+      ) &&
+    options.tab === Tab.PRACTICE;
   useEffect(() => {
     if (isMobile) {
       return;
@@ -63,8 +85,10 @@ export const PlayRelativeInterval: FunctionComponent<Props> = ({
     current.synth?.triggerAttackRelease(pitchAsString, "3n");
   };
   return (
-    <button onClick={onClick}>
-      <>{children}</>
-    </button>
+    <button
+      className={`${className} ${isGreen ? style.green : ""}`}
+      {...rest}
+      onClick={onClick}
+    />
   );
 };

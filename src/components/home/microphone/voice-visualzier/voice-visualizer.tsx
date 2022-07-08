@@ -1,16 +1,11 @@
-import React, { HTMLAttributes, useContext, useEffect, useState } from "react";
-import { Note } from "../voice-wrapper";
+import React, { useContext, useEffect, useState } from "react";
 import { intervals } from "../../../../utils/constants";
 import { ctx } from "../../../../App";
 import style from "./voice-visualizer.module.less";
 import { noteToNumber } from "../../../../utils/utils";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  note: Note;
-}
-
-export const VoiceVisualizer = ({ note }: Props) => {
-  const { options, currentIntervalMetaData } = useContext(ctx);
+export const VoiceVisualizer = () => {
+  const { note, options, currentIntervalMetaData } = useContext(ctx);
   const [shouldShow, setShouldShow] = useState(false);
 
   useEffect(() => {

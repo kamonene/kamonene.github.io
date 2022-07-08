@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.less";
-import { VoiceWrapper } from "../home/voice-wrapper/voice-wrapper";
 import { PracticeContainer } from "../home/practice-container/practice-container";
 import { Mode } from "../../utils/constants";
 import { IntervalSelector } from "../functional/interval-selector/interval-selector";
@@ -9,6 +8,7 @@ import style from "./router.module.less";
 import { useTabKeyBinds } from "../hooks/use-tab-key-binds";
 import { ctx } from "../../App";
 import { isMobile } from "react-device-detect";
+import { VoiceVisualizer } from "../home/microphone/voice-visualzier/voice-visualizer";
 
 export const Router = () => {
   useTabKeyBinds();
@@ -36,7 +36,7 @@ export const Router = () => {
       <TabPanel>
         <div className={style.tabContainer}>
           <PracticeContainer mode={Mode.VOICE_SANDBOX} />
-          <VoiceWrapper />
+          <VoiceVisualizer />
         </div>
       </TabPanel>
       <TabPanel>

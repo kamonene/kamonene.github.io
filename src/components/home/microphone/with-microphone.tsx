@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { PitchDetector } from "pitchy";
 import { numberToNote } from "../../../utils/utils";
-import { VoiceVisualizer } from "./voice-visualzier/voice-visualizer";
+import { ctx } from "../../../App";
 
 const bufferSize = 4096;
 
@@ -11,12 +11,8 @@ export interface Note {
   volume: number;
 }
 
-export const VoiceWrapper = () => {
-  const [note, setNote] = useState<Note>({
-    noteName: "",
-    noteNumber: 0,
-    volume: 0,
-  });
+export const WithMicrophone = () => {
+  const { setNote } = useContext(ctx);
   useEffect(() => {
     const audioContext: AudioContext = new AudioContext();
     const analyzer = audioContext.createAnalyser();
@@ -63,7 +59,7 @@ export const VoiceWrapper = () => {
         scriptProcessor.removeEventListener("audioprocess", eventListener);
       };
     });
-  }, []);
+  }, [setNote]);
 
-  return <VoiceVisualizer note={note} />;
+  return <></>;
 };
