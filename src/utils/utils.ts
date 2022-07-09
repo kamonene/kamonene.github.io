@@ -70,7 +70,7 @@ const findLower = (
       ? options.baseNoteLower + currentInterval
       : options.baseNoteLower;
   } else if (options.tab === Tab.QUIZ) {
-    return 20;
+    return 25;
   } else {
     return multiplier === -1 ? options.baseNoteLower : options.baseNoteLower;
   }
