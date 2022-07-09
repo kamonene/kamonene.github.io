@@ -24,6 +24,9 @@ export const VoiceVisualizer = () => {
 
   return (
     <div className={style.container}>
+      {!options.enableMicrophone && (
+        <p>Does not work well without microphone enabled</p>
+      )}
       {reversedIntervals.map((interval, index) => {
         const offset = intervals.findIndex(
           (interval1) => interval1 === interval
