@@ -21,11 +21,12 @@ export const WithMicrophone = () => {
       1,
       1
     );
+    let eventListener: (event: AudioProcessingEvent) => void;
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
       audioContext.createMediaStreamSource(stream).connect(analyzer);
       analyzer.connect(scriptProcessor);
       scriptProcessor.connect(audioContext.destination);
-      const eventListener = (event: AudioProcessingEvent) => {
+      eventListener = (event: AudioProcessingEvent) => {
         const channelData = event.inputBuffer.getChannelData(0);
         const detector = PitchDetector.forFloat32Array(bufferSize);
         const pitch: Array<number> = detector.findPitch(
@@ -55,10 +56,14 @@ export const WithMicrophone = () => {
         }
       };
       scriptProcessor.addEventListener("audioprocess", eventListener);
-      return () => {
-        scriptProcessor.removeEventListener("audioprocess", eventListener);
-      };
     });
+    return () => {
+      audioContext.close().then(() => {
+        scriptProcessor.removeEventListener("audioprocess", eventListener);
+        scriptProcessor.disconnect();
+        analyzer.disconnect();
+      });
+    };
   }, [setNote]);
 
   return <></>;
