@@ -9,7 +9,18 @@ export interface Note {
   noteName: string;
   noteNumber: number;
   volume: number;
+  cents: number;
 }
+const centsOffFromPitch = (hz: number, note: number): number => {
+  return Math.floor(
+    Math.round(
+      (1200 * Math.log(hz / frequencyFromNoteNumber(note))) / Math.log(2.0)
+    )
+  );
+};
+
+const frequencyFromNoteNumber = (note: number): number =>
+  440 * Math.pow(2, (note - 57) / 12.0);
 
 export const WithMicrophone = () => {
   const { setNote } = useContext(ctx);
@@ -45,8 +56,11 @@ export const WithMicrophone = () => {
           noteName: numberToNote(noteNumber),
           noteNumber,
           volume: volume,
+          cents: centsOffFromPitch(pitch[0], noteNumber),
         };
+
         if (
+          pitch[1] > 0.85 &&
           noteNumber > 0 &&
           currentNote.noteName &&
           currentNote.noteNumber &&

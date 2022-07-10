@@ -3,6 +3,7 @@ import { intervals } from "../../../../utils/constants";
 import { ctx } from "../../../../App";
 import style from "./voice-visualizer.module.less";
 import { noteToNumber } from "../../../../utils/utils";
+import { Note } from "../with-microphone";
 
 export const VoiceVisualizer = () => {
   const { note, options, currentIntervalMetaData } = useContext(ctx);
@@ -35,20 +36,14 @@ export const VoiceVisualizer = () => {
         const matches = shouldShow && note.noteNumber === number;
         const isOutOfRange = number > options.baseNoteUpper;
         return (
-          <div
+          <IntervalRow
             key={index}
-            className={(() => {
-              if (matches) {
-                return style.active;
-              } else if (isOutOfRange) {
-                return style.outOfRange;
-              } else {
-                return style.inactive;
-              }
-            })()}
-          >
-            {interval}
-          </div>
+            interval={interval}
+            index={index}
+            note={note}
+            isOutOfRange={isOutOfRange}
+            matches={matches}
+          />
         );
       })}
       {intervals.map((interval, index) => {
@@ -58,22 +53,60 @@ export const VoiceVisualizer = () => {
         const isOutOfRange = number < options.baseNoteLower;
 
         return (
-          <div
+          <IntervalRow
             key={index}
-            className={(() => {
-              if (matches) {
-                return style.active;
-              } else if (isOutOfRange) {
-                return style.outOfRange;
-              } else {
-                return style.inactive;
-              }
-            })()}
-          >
-            {interval}
-          </div>
+            interval={interval}
+            index={index}
+            note={note}
+            isOutOfRange={isOutOfRange}
+            matches={matches}
+          />
         );
       })}
+    </div>
+  );
+};
+interface IntervalRowProps {
+  index: number;
+  matches: boolean;
+  isOutOfRange: boolean;
+  note: Note;
+  interval: string;
+}
+const IntervalRow = ({
+  index,
+  matches,
+  isOutOfRange,
+  note,
+  interval,
+}: IntervalRowProps) => {
+  return (
+    <div
+      key={index}
+      className={(() => {
+        if (matches) {
+          return style.active;
+        } else if (isOutOfRange) {
+          return style.outOfRange;
+        } else {
+          return style.inactive;
+        }
+      })()}
+    >
+      {interval}
+      <div className={style.indicator}>
+        {(() => {
+          if (matches) {
+            if (Math.abs(note.cents) < 20) {
+              return "◯";
+            } else if (note.cents < 0) {
+              return "↑";
+            } else if (note.cents > 0) {
+              return "↓";
+            }
+          }
+        })()}
+      </div>
     </div>
   );
 };

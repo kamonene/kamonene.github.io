@@ -13,10 +13,11 @@ const defaultIntervalMetaDataUpdate: React.Dispatch<
 const defaultSetNote: React.Dispatch<React.SetStateAction<Note>> = () =>
   defaultNote;
 
-const defaultNote = {
+const defaultNote: Note = {
   noteName: "",
   noteNumber: 0,
   volume: 0,
+  cents: 0,
 };
 
 const defaultIntervalMetaData: IntervalMetaData = {
@@ -43,6 +44,7 @@ function App() {
     noteName: "",
     noteNumber: 0,
     volume: 0,
+    cents: 0,
   });
   const [cookies, setCookie] = useCookies(["options"]);
   const [firstLoaded, setFirstLoaded] = useState(true);

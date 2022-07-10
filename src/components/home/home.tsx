@@ -11,6 +11,7 @@ export const Home: FunctionComponent = () => {
   return (
     <div className={style.home}>
       {options.enableMicrophone && <WithMicrophone />}
+
       <div className={style.container}>
         <button
           className={style.button}
@@ -21,6 +22,7 @@ export const Home: FunctionComponent = () => {
           ≡
         </button>
         <h3 className={style.title}>Relative pitch</h3>
+
         <div className={style.enableMic}>
           <label htmlFor={"enableMic"}>Microphone enabled</label>
           <input
